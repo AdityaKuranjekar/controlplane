@@ -1,6 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
-from console.theme import inject_global_css, render_sidebar, render_page_header, section, state_badge
+from theme import inject_global_css, render_sidebar, render_page_header, section, state_badge
 
 st.set_page_config(page_title="ControlPlane | How It Works", page_icon="🔍", layout="wide")
 inject_global_css()

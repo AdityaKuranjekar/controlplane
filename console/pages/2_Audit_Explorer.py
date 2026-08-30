@@ -4,7 +4,7 @@ import hashlib
 import json
 import os
 import requests
-from console.theme import inject_global_css, render_sidebar, render_page_header, section, state_badge
+from theme import inject_global_css, render_sidebar, render_page_header, section, state_badge
 
 st.set_page_config(page_title="ControlPlane | Audit Explorer", layout="wide")
 inject_global_css()

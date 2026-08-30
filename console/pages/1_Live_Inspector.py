@@ -2,8 +2,8 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import time
-from console.theme import inject_global_css, render_sidebar, render_page_header, section, state_badge
-from console.lib.gateway import post_chat
+from theme import inject_global_css, render_sidebar, render_page_header, section, state_badge
+from lib.gateway import post_chat
 
 st.set_page_config(page_title="ControlPlane | Live Inspector", layout="wide")
 inject_global_css()

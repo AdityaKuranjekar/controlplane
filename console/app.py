@@ -1,5 +1,5 @@
 import streamlit as st
-from console.theme import inject_global_css, render_sidebar, render_page_header, kpi_card
+from theme import inject_global_css, render_sidebar, render_page_header, kpi_card
 import json
 import sqlite3
 

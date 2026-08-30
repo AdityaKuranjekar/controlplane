@@ -4,7 +4,7 @@ import pandas as pd
 import altair as alt
 import os
 import requests
-from console.theme import inject_global_css, render_sidebar, render_page_header, section, kpi_card
+from theme import inject_global_css, render_sidebar, render_page_header, section, kpi_card
 
 st.set_page_config(page_title="ControlPlane | Grounding Calibration", layout="wide")
 inject_global_css()

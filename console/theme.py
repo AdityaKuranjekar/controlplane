@@ -165,7 +165,7 @@ def inject_global_css():
     """, unsafe_allow_html=True)
 
 def render_sidebar(active=None):
-    from console.lib.gateway import health
+    from lib.gateway import health
     import streamlit as st
     st.sidebar.markdown("<h3 style='margin-bottom:4px;'>ControlPlane</h3>", unsafe_allow_html=True)
     

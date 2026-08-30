@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from console.theme import inject_global_css, render_sidebar, render_page_header, section, kpi_card
+from theme import inject_global_css, render_sidebar, render_page_header, section, kpi_card
 
 st.set_page_config(page_title="ControlPlane | Production Scale", layout="wide")
 inject_global_css()
