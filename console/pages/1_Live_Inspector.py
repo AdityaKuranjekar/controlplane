@@ -111,7 +111,7 @@ with col_right:
                 base = alt.Chart(df_stages).encode(
                     y=alt.Y("Stage:N", sort=stage_keys, title=None)
                 )
-                bars = base.mark_bar(color="#6C2BD9").encode(
+                bars = base.mark_bar(color="#0F172A").encode(
                     x=alt.X("Start:Q", title="Latency (ms)"),
                     x2="End:Q"
                 )
@@ -128,7 +128,10 @@ with col_right:
             
             # --- RESPONSE PANEL ---
             if resp.status_code == 200:
-                content = resp.json().get("choices", [{}])[0].get("message", {}).get("content", "")
+                try:
+                    content = resp.json().get("choices", [{}])[0].get("message", {}).get("content", "")
+                except Exception:
+                    content = resp.text
             else:
                 content = resp.text
             

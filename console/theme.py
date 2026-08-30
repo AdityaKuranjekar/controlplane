@@ -5,8 +5,9 @@ def inject_global_css():
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono&display=swap');
     
-    html, body, [class*="css"] { 
+    html, body, [class*="css"], [class*="st-"] { 
         font-family: 'Inter', sans-serif; 
+        font-size: 15px;
     }
 
     :root {
@@ -19,9 +20,9 @@ def inject_global_css():
         --text-primary: #1A1D21;
         --text-secondary: #5C636E;
         --text-muted: #8A929E;
-        --accent: #6C2BD9;
-        --accent-hover: #5A21B6;
-        --accent-tint: #F4F0FE;
+        --accent: #0F172A;
+        --accent-hover: #1E293B;
+        --accent-tint: #F1F5F9;
         --success: #067647;
         --success-bg: #ECFDF3;
         --success-border: #ABEFC6;
@@ -129,7 +130,7 @@ def inject_global_css():
         margin-bottom: 16px;
     }
     .cp-section-label {
-        font-size: 12px;
+        font-size: 13px;
         text-transform: uppercase;
         color: var(--text-muted);
         font-weight: 600;
