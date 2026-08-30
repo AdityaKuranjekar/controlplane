@@ -1,32 +1,52 @@
-from .embeddings import embed
-from .vector_store import VectorStore
+import json
+import os
 from .cost_model import serving_cost_threshold
 
-_store = VectorStore()
+CACHE_FILE = "exact_match_cache.json"
+
+# In-memory dictionary for exact match caching
+_cache = {}
+
+# Load on module init
+if os.path.exists(CACHE_FILE):
+    try:
+        with open(CACHE_FILE, "r") as f:
+            _cache = json.load(f)
+    except Exception:
+        _cache = {}
 
 def cache_lookup(query: str, profile_name: str) -> dict | None:
     """
-    Implements: serve from cache iff mismatch_cost <= serving_cost_threshold
-    i.e. iff cosine_similarity >= threshold  (since higher sim == lower mismatch)
+    Lite version: Exact match instead of semantic match.
     Returns None on miss (caller should invoke the cascade router).
     """
-    vec = embed(query)
-    sims, ids = _store.search(vec, k=1)
-    if len(sims) == 0:
-        return None
-
-    best_sim, best_id = float(sims[0]), int(ids[0])
-    threshold = serving_cost_threshold(profile_name)
-
-    if best_sim >= threshold:
-        meta = _store.get_meta(best_id)
-        if meta:
-            _store.bump_hits(best_id)
-            return {"response": meta["response"], "similarity": best_sim,
-                     "matched_query": meta["query"], "tier_used": meta["tier_used"]}
+    query_key = query.strip().lower()
+    if query_key in _cache:
+        # We always pretend similarity is 1.0 since it's an exact match
+        threshold = serving_cost_threshold(profile_name)
+        if 1.0 >= threshold:
+            meta = _cache[query_key]
+            meta["hits"] = meta.get("hits", 0) + 1
+            # persist hit count optionally, skipping for speed
+            return {
+                "response": meta["response"], 
+                "similarity": 1.0, # Fake 100% similarity
+                "matched_query": meta["query"], 
+                "tier_used": meta["tier_used"]
+            }
     return None
 
 def cache_store(query: str, response: str, tier_used: str):
-    vec = embed(query)
-    _store.add(vec, query, response, tier_used)
-    _store.persist()  # fsync to disk so cache survives restarts on free hosts
+    query_key = query.strip().lower()
+    _cache[query_key] = {
+        "query": query,
+        "response": response,
+        "tier_used": tier_used,
+        "hits": 0
+    }
+    # Persist to disk so cache survives restarts on free hosts
+    try:
+        with open(CACHE_FILE, "w") as f:
+            json.dump(_cache, f)
+    except Exception:
+        pass

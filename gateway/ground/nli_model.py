@@ -1,38 +1,27 @@
-from optimum.onnxruntime import ORTModelForSequenceClassification
-from transformers import AutoTokenizer
-from functools import lru_cache
-import numpy as np
-import os
-
-# Base directory for models relative to the project root
-# Using an absolute path or relative to the current file
-current_dir = os.path.dirname(os.path.abspath(__file__))
-project_root = os.path.abspath(os.path.join(current_dir, "..", "..", ".."))
-MODEL_DIR = os.path.join(project_root, "controlplane", "models", "nli-deberta-v3-xsmall-int8")
-
-# CONFIRMED from model.config.id2label at export time.
-# {0: 'contradiction', 1: 'entailment', 2: 'neutral'}
-LABEL_MAP = {"entailment": 1, "neutral": 2, "contradiction": 0}
-
-@lru_cache(maxsize=1)
-def get_model_and_tokenizer():
-    model = ORTModelForSequenceClassification.from_pretrained(MODEL_DIR, file_name="model_quantized.onnx")
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_DIR)
-    return model, tokenizer
+from gateway.llm.groq_client import stream_completion
 
 def contradiction_score(premise: str, hypothesis: str) -> float:
     """
-    Returns P(contradiction) normalized over {entailment, contradiction} only,
-    per the SelfCheckGPT-NLI paper's approach — ignores the neutral class
-    so the score is cleanly bounded [0,1].
+    Lite version: Uses Groq API instead of local DeBERTa ONNX model.
     """
-    model, tok = get_model_and_tokenizer()
-    inputs = tok(premise, hypothesis, return_tensors="pt", truncation=True, max_length=256)
-    logits = model(**inputs).logits[0].detach().numpy()
+    # Ask Llama 3 to act as an NLI model
+    prompt = f"""You are a strict logical inference model.
+Premise: "{premise}"
+Hypothesis: "{hypothesis}"
+Does the premise contradict the hypothesis?
+Answer ONLY with a number between 0.0 and 1.0, where 1.0 means absolute contradiction and 0.0 means no contradiction."""
 
-    z_e = logits[LABEL_MAP["entailment"]]
-    z_c = logits[LABEL_MAP["contradiction"]]
+    messages = [{"role": "user", "content": prompt}]
     
-    # softmax over just these two logits (paper's normalization)
-    exp_e, exp_c = np.exp(z_e), np.exp(z_c)
-    return float(exp_c / (exp_e + exp_c))
+    try:
+        # Since we just want a single float, we can consume the stream synchronously for a quick result
+        full_response = ""
+        for chunk in stream_completion(messages, model="llama-3.1-8b-instant", temperature=0.0):
+            full_response += chunk
+            
+        score = float(full_response.strip())
+        return min(max(score, 0.0), 1.0) # Clamp between 0 and 1
+    except Exception as e:
+        # Fallback if parsing fails
+        print(f"NLI Fallback due to parsing error: {e}")
+        return 0.0

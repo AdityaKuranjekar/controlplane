@@ -3,9 +3,6 @@ uvicorn
 pydantic
 pyyaml
 groq
-faiss-cpu
-sentence-transformers
 numpy
-datasets
 requests
-python-dotenv
+python-dotenv

@@ -26,12 +26,7 @@ def _chunk_answer_for_streaming(answer: str, chunk_size: int = 4):  # ADDED for 
     for i in range(0, len(words), chunk_size):
         yield " ".join(words[i:i+chunk_size]) + " "
 
-@app.on_event("startup")                                          # ADDED — cold-start fix
-async def warm_models():
-    from gateway.cache.embeddings import get_model as get_embed_model
-    from gateway.ground.nli_model import get_model_and_tokenizer
-    get_embed_model()             # forces MiniLM load now, not on request #1
-    get_model_and_tokenizer()     # forces ONNX NLI load now, not on request #1
+# Warm models removed for Cloud-Lite
 
 @app.post("/v1/chat/completions")
 async def chat(req: ChatCompletionRequest):
