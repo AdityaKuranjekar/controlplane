@@ -1,0 +1,10 @@
+{
+    "confusion_matrix": {
+        "tp": 45,
+        "fp": 12,
+        "tn": 88,
+        "fn": 5
+    },
+    "recall": 0.90,
+    "precision": 0.789
+}

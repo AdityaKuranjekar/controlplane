@@ -122,3 +122,37 @@ async def chat(req: ChatCompletionRequest):
         yield f"data: {result['answer']}\n\n"
 
     return StreamingResponse(generate(), headers=headers, media_type="text/event-stream")
+
+@app.get("/v1/audit/logs")
+async def get_audit_logs():
+    import sqlite3
+    try:
+        conn = sqlite3.connect("audit.db")
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM audit_log ORDER BY id ASC")
+        rows = [dict(row) for row in cursor.fetchall()]
+        conn.close()
+        return {"logs": rows}
+    except Exception as e:
+        return {"logs": [], "error": str(e)}
+
+@app.get("/v1/grounding/calibration")
+async def get_calibration():
+    import json
+    import os
+    try:
+        cal = json.load(open("eval/results/l2_calibration.json"))
+        met = json.load(open("eval/results/l2_metrics.json"))
+        return {"calibration": cal, "metrics": met}
+    except Exception as e:
+        return {"error": str(e)}
+
+@app.get("/v1/routing/bandit")
+async def get_bandit():
+    import json
+    import os
+    try:
+        return json.load(open("eval/results/l4_bandit_metrics.json"))
+    except Exception as e:
+        return {"error": str(e)}

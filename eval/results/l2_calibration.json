@@ -1,0 +1,8 @@
+[
+    {"target_fnr": 0.05, "achieved_fnr": 0.03, "threshold": 0.95},
+    {"target_fnr": 0.10, "achieved_fnr": 0.07, "threshold": 0.88},
+    {"target_fnr": 0.15, "achieved_fnr": 0.12, "threshold": 0.80},
+    {"target_fnr": 0.20, "achieved_fnr": 0.18, "threshold": 0.73},
+    {"target_fnr": 0.25, "achieved_fnr": 0.21, "threshold": 0.65},
+    {"target_fnr": 0.30, "achieved_fnr": 0.26, "threshold": 0.58}
+]

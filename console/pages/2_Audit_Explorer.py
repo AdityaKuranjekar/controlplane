@@ -9,16 +9,22 @@ st.set_page_config(page_title="Audit Explorer", layout="wide")
 st.title("Audit Explorer")
 st.markdown("Inspect `audit.db` logs and manually verify the SHA-256 hash chain.")
 
-DB_PATH = "audit.db"
+import os
+import requests
+
+GATEWAY_URL = os.getenv("GATEWAY_URL", "http://localhost:8000")
 
 def load_data():
     try:
-        conn = sqlite3.connect(DB_PATH)
-        df = pd.read_sql_query("SELECT * FROM audit_log ORDER BY id ASC", conn)
-        conn.close()
-        return df
+        response = requests.get(f"{GATEWAY_URL}/v1/audit/logs")
+        if response.status_code == 200:
+            data = response.json().get("logs", [])
+            return pd.DataFrame(data)
+        else:
+            st.error(f"Failed to fetch audit logs: {response.text}")
+            return pd.DataFrame()
     except Exception as e:
-        st.error(f"Failed to load DB: {e}")
+        st.error(f"Failed to connect to gateway: {e}")
         return pd.DataFrame()
 
 def _canonical(payload: dict) -> str:
