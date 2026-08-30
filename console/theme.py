@@ -5,7 +5,7 @@ def inject_global_css():
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono&display=swap');
     
-    html, body, [class*="css"], [class*="st-"] { 
+    html, body, [class*="css"] { 
         font-family: 'Inter', sans-serif; 
         font-size: 15px;
     }
@@ -72,8 +72,10 @@ def inject_global_css():
     }
     .stButton>button[kind="primary"] {
         background-color: var(--accent) !important;
-        color: white !important;
         border: none !important;
+    }
+    .stButton>button[kind="primary"] * {
+        color: white !important;
     }
     .stButton>button[kind="secondary"] {
         background-color: white !important;
