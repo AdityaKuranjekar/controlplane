@@ -59,7 +59,7 @@ if data and "error" not in data:
             x='target_fnr:Q', y='achieved_fnr:Q'
         )
         
-        chart = (area + ref_line + line + points).properties(height=260)
+        chart = alt.layer(area, ref_line, line, points).properties(height=260)
         st.altair_chart(chart, use_container_width=True)
 
     with col2:

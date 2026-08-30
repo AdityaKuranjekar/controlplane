@@ -58,16 +58,16 @@ for i, row in enumerate(comparison):
         proto_content = f"<span style='color:var(--text-secondary);'>{row['Prototype']}</span>"
 
     table_html += f"""
-      <tr style="{border_style}">
-        <td style="padding:16px 20px; font-weight:500;">{row['Component']}</td>
-        <td style="padding:16px 20px;">{proto_content}</td>
-        <td style="padding:16px 20px;">{prod_content}</td>
-      </tr>
-    """
+<tr style="{border_style}">
+<td style="padding:16px 20px; font-weight:500;">{row['Component']}</td>
+<td style="padding:16px 20px;">{proto_content}</td>
+<td style="padding:16px 20px;">{prod_content}</td>
+</tr>
+"""
 
 table_html += """
-    </tbody>
-  </table>
+</tbody>
+</table>
 </div>
 """
 st.markdown(table_html, unsafe_allow_html=True)
