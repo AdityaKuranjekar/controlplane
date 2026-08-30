@@ -49,14 +49,14 @@ if data and "error" not in data:
         
         # y = x reference line
         max_val = max(df['target_fnr'].max(), df['achieved_fnr'].max())
-        ref_df = pd.DataFrame({"x": [0, max_val], "y": [0, max_val]})
+        ref_df = pd.DataFrame({"target_fnr": [0, max_val], "achieved_fnr": [0, max_val]})
         ref_line = alt.Chart(ref_df).mark_line(strokeDash=[4,4], color="var(--text-muted)").encode(
-            x='x:Q', y='y:Q'
+            x='target_fnr:Q', y='achieved_fnr:Q'
         )
         
         # Shade safe region below y=x
         area = alt.Chart(ref_df).mark_area(opacity=0.1, color="var(--success)").encode(
-            x='x:Q', y='y:Q'
+            x='target_fnr:Q', y='achieved_fnr:Q'
         )
         
         chart = (area + ref_line + line + points).properties(height=260)

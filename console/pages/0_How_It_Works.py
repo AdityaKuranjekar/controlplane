@@ -200,11 +200,11 @@ with col2:
     st.markdown("#### Gateway Output")
     st.markdown("""
     <div class="cp-card" style="font-size:14px;">
-        <div style="margin-bottom:12px;">Decision: {state_badge("REDACT")}</div>
+        <div style="margin-bottom:12px;">Decision: {state_badge_placeholder}</div>
         <div class="cp-mono" style="background:var(--bg-sunken); padding:12px; border-radius:6px; margin-bottom:12px; color:var(--text-secondary);">
         RiskVector: { privacy: 1.0, safety: 0.0, grounding: 0.0, cost: 0.1 }<br>
         Trigger: regex(PII_CC)
         </div>
         <div style="color:var(--text-muted); font-size:12px;">Audit Log Hash: <span class="cp-mono">e3b0c44298fc1c14</span></div>
     </div>
-    """.format(state_badge=state_badge), unsafe_allow_html=True)
+    """.replace("{state_badge_placeholder}", state_badge("REDACT")), unsafe_allow_html=True)

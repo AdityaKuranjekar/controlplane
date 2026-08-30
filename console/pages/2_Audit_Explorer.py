@@ -95,7 +95,7 @@ if not df.empty:
     if filter_act != "All": disp_df = disp_df[disp_df['action'] == filter_act]
     
     # Sorting for display (newest first)
-    disp_df = disp_df.sort_values("timestamp", ascending=False)
+    disp_df = disp_df.sort_values("id", ascending=False)
 
     section("Hash Chain")
     # Horizontal hash-chain visualization strip (small linked blocks)

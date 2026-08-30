@@ -101,6 +101,9 @@ if data and "error" not in data:
 
     if "final_arm_stats" in data:
         # Sort arms to display consistently
+        for arm_data in data["final_arm_stats"]:
+            if "arm" not in arm_data:
+                arm_data["arm"] = f"tau_{arm_data.get('threshold', 0)}"
         arms = sorted(data["final_arm_stats"], key=lambda k: k["arm"])
         
         # Determine number of columns (up to 4)
