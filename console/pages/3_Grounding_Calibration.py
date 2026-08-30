@@ -1,8 +1,10 @@
 import streamlit as st
 import json
 import pandas as pd
+from theme import inject_global_css
 
 st.set_page_config(page_title="Grounding Calibration", layout="wide")
+inject_global_css()
 
 st.title("Grounding Lane — Conformal Calibration")
 st.caption("Streaming NLI verification against RAG context, with statistically calibrated hallucination thresholds.")

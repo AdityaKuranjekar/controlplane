@@ -2,8 +2,10 @@ import streamlit as st
 import pandas as pd
 import json
 import os
+from theme import inject_global_css
 
 st.set_page_config(page_title="Bandit Optimization Curves", layout="wide")
+inject_global_css()
 
 st.title("Bandit Optimization Curves")
 st.markdown("""

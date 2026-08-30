@@ -3,8 +3,22 @@ import requests
 import json
 import time
 import pandas as pd
+from theme import inject_global_css
 
 st.set_page_config(page_title="Live Inspector", layout="wide")
+inject_global_css()
+
+if "seen_intro" not in st.session_state:
+    st.session_state.seen_intro = False
+
+if not st.session_state.seen_intro:
+    with st.container(border=True):
+        st.markdown("### 👋 New here? Start with a preset.")
+        st.write("Click any button below to auto-fill a real scenario, then hit **Send**. "
+                 "No need to write your own prompt for your first try.")
+        if st.button("Got it, hide this"):
+            st.session_state.seen_intro = True
+            st.rerun()
 
 def render_action_badge(action: str):
     colors = {
@@ -59,6 +73,7 @@ else:
 
 import os
 
+st.caption("① Pick or write a prompt → ② Choose a profile → ③ Click Send → ④ Read the verdict + latency breakdown below")
 if st.button("Send Request"):
     gateway_url = os.environ.get("GATEWAY_URL", "http://localhost:8080")
     url = f"{gateway_url}/v1/chat/completions"

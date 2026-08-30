@@ -3,8 +3,10 @@ import sqlite3
 import pandas as pd
 import hashlib
 import json
+from theme import inject_global_css
 
 st.set_page_config(page_title="Audit Explorer", layout="wide")
+inject_global_css()
 
 st.title("Audit Explorer")
 st.markdown("Inspect `audit.db` logs and manually verify the SHA-256 hash chain.")
