@@ -1,0 +1,9 @@
+name: internal_rag
+latency_budget_ms: 1500
+thresholds:
+  privacy_block: 0.0
+  safety_block: 0.7
+actions:
+  on_privacy_hit: REDACT
+  on_safety_hit: FLAG      # internal users get flagged not blocked, at L0
+  default: ALLOW

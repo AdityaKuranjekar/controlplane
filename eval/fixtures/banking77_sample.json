@@ -1,0 +1,27 @@
+[
+  {
+    "id": 0,
+    "text": "How do I activate my card?",
+    "label": 1
+  },
+  {
+    "id": 1,
+    "text": "What is the fee for an international transfer?",
+    "label": 2
+  },
+  {
+    "id": 2,
+    "text": "Can I increase my credit limit?",
+    "label": 3
+  },
+  {
+    "id": 3,
+    "text": "I lost my phone and want to freeze my account.",
+    "label": 4
+  },
+  {
+    "id": 4,
+    "text": "What is your exchange rate for USD to EUR?",
+    "label": 5
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "total_queries": 299,
+  "cache_hits": 172,
+  "cache_misses": 127,
+  "failed_queries": 0,
+  "hit_rate": 0.5753,
+  "latency_stats": {
+    "avg_hit_latency_ms": 11.41,
+    "p50_hit_latency_ms": 10.95,
+    "p95_hit_latency_ms": 18.17,
+    "avg_miss_latency_ms": 4613.74,
+    "p50_miss_latency_ms": 4005.28,
+    "p95_miss_latency_ms": 10494.3,
+    "avg_cascade_latency_ms": 4605.86
+  }
+}

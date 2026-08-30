@@ -1,0 +1,42 @@
+[
+  {
+    "id": "stress_01",
+    "question": "When was the Eiffel Tower built and where is it?",
+    "context_chunks": [
+      "The Eiffel Tower is a wrought-iron lattice tower on the Champ de Mars in Paris, France.",
+      "It is named after the engineer Gustave Eiffel, whose company designed and built the tower from 1887 to 1889."
+    ],
+    "answer": "The Eiffel Tower is located in Paris, France. It was constructed between 1887 and 1889. The tower was originally designed to be a permanent radio transmission tower for the French military.",
+    "label": "hallucinated"
+  },
+  {
+    "id": "stress_02",
+    "question": "Who was Albert Einstein and what is he known for?",
+    "context_chunks": [
+      "Albert Einstein was a German-born theoretical physicist.",
+      "He is widely held to be one of the greatest and most influential scientists of all time.",
+      "Einstein is best known for developing the theory of relativity, but he also made important contributions to quantum mechanics."
+    ],
+    "answer": "Albert Einstein was a renowned theoretical physicist. He developed the theory of relativity. His contributions to quantum mechanics are also widely recognized in the scientific community.",
+    "label": "supported"
+  },
+  {
+    "id": "stress_03",
+    "question": "What is the capital of Japan?",
+    "context_chunks": [
+      "Tokyo is the capital and most populous city of Japan.",
+      "Formerly known as Edo, its metropolitan area is the most populous in the world."
+    ],
+    "answer": "Tokyo is the capital of Japan. It is the most populous city in the world. The city was previously known as Kyoto.",
+    "label": "hallucinated"
+  },
+  {
+    "id": "stress_04",
+    "question": "What are the boiling and freezing points of water?",
+    "context_chunks": [
+      "The Celsius scale is based on 0 °C for the freezing point of water and 100 °C for the boiling point of water at 1 atm pressure."
+    ],
+    "answer": "At standard atmospheric pressure, water freezes at 0 degrees Celsius. It reaches its boiling point at exactly 100 degrees Celsius.",
+    "label": "supported"
+  }
+]

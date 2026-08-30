@@ -1,0 +1,9 @@
+name: customer_bot
+latency_budget_ms: 100
+thresholds:
+  privacy_block: 0.0       # any detected PII -> redact, never block outright at L0
+  safety_block: 0.5        # injection_score above this -> BLOCK
+actions:
+  on_privacy_hit: REDACT
+  on_safety_hit: BLOCK
+  default: ALLOW

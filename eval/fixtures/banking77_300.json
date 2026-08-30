@@ -1,0 +1,1497 @@
+[
+  {
+    "id": "0_orig",
+    "text": "I am still waiting on my card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "0_para_1",
+    "text": "Has my card already shipped? I'm still waiting to receive it.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "0_para_2",
+    "text": "Why hasn't my card arrived yet? I'm still waiting.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "1_orig",
+    "text": "What can I do if my card still hasn't arrived after 2 weeks?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "1_para_1",
+    "text": "What should I do if my card still hasn\u2019t arrived after two weeks?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "1_para_2",
+    "text": "What steps can I take since I haven\u2019t received my card after a fortnight?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "2_orig",
+    "text": "I have been waiting over a week. Is the card still coming?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "2_para_1",
+    "text": "I've been waiting for more than a week\u2014will the card arrive soon?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "2_para_2",
+    "text": "It's been over a week; is my card still on its way?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "3_orig",
+    "text": "Can I track my card while it is in the process of delivery?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "3_para_1",
+    "text": "Is it possible to track my card while it's being shipped?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "3_para_2",
+    "text": "Can I monitor the delivery progress of my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "4_orig",
+    "text": "How do I know if I will get my card, or if it is lost?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "4_para_1",
+    "text": "Will my card arrive, or has it gone missing?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "4_para_2",
+    "text": "How can I verify whether my card has been sent or is lost?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "5_orig",
+    "text": "When did you send me my new card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "5_para_1",
+    "text": "When did you ship my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "5_para_2",
+    "text": "When was my new card sent out?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "6_orig",
+    "text": "Do you have info about the card on delivery?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "6_para_1",
+    "text": "Can you tell me the status of my card delivery?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "6_para_2",
+    "text": "Do you have any update on when my card will be delivered?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "7_orig",
+    "text": "What do I do if I still have not received my new card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "7_para_1",
+    "text": "How should I proceed if I have not yet received my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "7_para_2",
+    "text": "What steps should I take if my new card hasn't arrived?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "8_orig",
+    "text": "Does the package with my card have tracking?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "8_para_1",
+    "text": "Does the package I bought with my card include tracking?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "8_para_2",
+    "text": "Is there a tracking number for the package I ordered with my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "9_orig",
+    "text": "I ordered my card but it still isn't here",
+    "is_paraphrase": false
+  },
+  {
+    "id": "9_para_1",
+    "text": "My card hasn't arrived yet, even though I ordered it.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "9_para_2",
+    "text": "I placed an order for my card, but it hasn't shown up yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "10_orig",
+    "text": "Why has my new card still not come?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "10_para_1",
+    "text": "Why hasn't my new card arrived yet?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "10_para_2",
+    "text": "I still haven't received my new card; can you explain why?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "11_orig",
+    "text": "I still haven't received my card after two weeks, is it lost?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "11_para_1",
+    "text": "I\u2019ve been waiting two weeks and still haven\u2019t received my card \u2013 is it lost?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "11_para_2",
+    "text": "My card hasn\u2019t arrived after two weeks; is it lost?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "12_orig",
+    "text": "Can you track my card for me?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "12_para_1",
+    "text": "Could you help me track my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "12_para_2",
+    "text": "Can you check the status of my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "13_orig",
+    "text": "Is there a way to track the delivery of my card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "13_para_1",
+    "text": "Can I monitor when my card will be delivered?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "13_para_2",
+    "text": "How can I keep track of my card's delivery?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "14_orig",
+    "text": "It's been a week since I ordered my card and it's not here. Please help?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "14_para_1",
+    "text": "I ordered my card a week ago and it hasn't arrived yet\u2014can you help?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "14_para_2",
+    "text": "I placed an order for my card last week and still haven't received it\u2014please assist.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "15_orig",
+    "text": "Will I be able to track the card that was sent to me?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "15_para_1",
+    "text": "Can I track the card that was sent to me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "15_para_2",
+    "text": "Is there a way to track the card that was sent to me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "16_orig",
+    "text": "I don't have my card in 1 week.  Should I be worried?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "16_para_1",
+    "text": "I haven't received my card after a week\u2014should I be worried?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "16_para_2",
+    "text": "I was expecting my card within a week but still haven't gotten it; is that normal?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "17_orig",
+    "text": "How do I know when my new card is going to arrive?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "17_para_1",
+    "text": "When can I expect my new card to arrive?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "17_para_2",
+    "text": "How can I find out the delivery date of my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "18_orig",
+    "text": "My new card has not been delivered to my home yet. What is going on?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "18_para_1",
+    "text": "Why hasn't my new card arrived at my address yet?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "18_para_2",
+    "text": "I haven't received my new card at home yet. What's the status?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "19_orig",
+    "text": "It's been a week since you issued me a card and I still didn't get it. Should I keep waiting?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "19_para_1",
+    "text": "One week has passed since you issued my card, but I haven\u2019t received it yet. Should I continue waiting?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "19_para_2",
+    "text": "I was issued a card a week ago, but I still haven\u2019t received it. Should I keep waiting?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "20_orig",
+    "text": "On the card that is coming, what's the tracking info?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "20_para_1",
+    "text": "What\u2019s the tracking number for the card that\u2019s on its way?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "20_para_2",
+    "text": "Do you have the shipping details for the card that will arrive soon?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "21_orig",
+    "text": "What is the status of my card's delivery?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "21_para_1",
+    "text": "What is the delivery status of my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "21_para_2",
+    "text": "When can I expect my card to arrive?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "22_orig",
+    "text": "Have you sent out my card yet?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "22_para_1",
+    "text": "Has my card already been shipped?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "22_para_2",
+    "text": "Did you dispatch my card yet?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "23_orig",
+    "text": "My card isn't here yet.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "23_para_1",
+    "text": "I haven't received my card yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "23_para_2",
+    "text": "My card hasn't arrived yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "24_orig",
+    "text": "where is my new card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "24_para_1",
+    "text": "Do you know where my new card is?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "24_para_2",
+    "text": "Can you tell me the status of my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "25_orig",
+    "text": "It's been a week since you sent my card and I still don't have it.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "25_para_1",
+    "text": "I still haven\u2019t received my card even though it was shipped a week ago.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "25_para_2",
+    "text": "It\u2019s been a week since you sent my card, and I\u2019ve yet to get it.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "26_orig",
+    "text": "How do I track the card you sent me?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "26_para_1",
+    "text": "What is the process for tracking the card that was sent to me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "26_para_2",
+    "text": "Could you tell me how to track the card you mailed?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "27_orig",
+    "text": "When will I recieve my new card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "27_para_1",
+    "text": "When will my new card arrive?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "27_para_2",
+    "text": "When can I expect to receive my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "28_orig",
+    "text": "When will I get my new card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "28_para_1",
+    "text": "When can I expect to receive my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "28_para_2",
+    "text": "What is the estimated arrival date for my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "29_orig",
+    "text": "What is the expected delivery date for my card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "29_para_1",
+    "text": "When will my card arrive?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "29_para_2",
+    "text": "What is the estimated delivery date for my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "30_orig",
+    "text": "Is there a tracking number for the card you sent me?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "30_para_1",
+    "text": "Do you have a tracking number for the card you mailed to me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "30_para_2",
+    "text": "Could you share the tracking number for the card you sent?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "31_orig",
+    "text": "I would like to track the card you sent to me.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "31_para_1",
+    "text": "Could you give me the tracking number for the card you sent?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "31_para_2",
+    "text": "I would like to check the delivery status of the card you shipped.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "32_orig",
+    "text": "Has my card been lost in delivery?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "32_para_1",
+    "text": "Has my card been lost during shipping?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "32_para_2",
+    "text": "Did my card get lost while being delivered?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "33_orig",
+    "text": "My new card hasn't came in.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "33_para_1",
+    "text": "I haven't received my new card yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "33_para_2",
+    "text": "My new card still hasn't arrived.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "34_orig",
+    "text": "Where is the card I ordered 2 weeks ago?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "34_para_1",
+    "text": "I ordered a card two weeks ago\u2014can you tell me where it is?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "34_para_2",
+    "text": "Where can I find the card I ordered 14 days ago?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "35_orig",
+    "text": "Can I get an update on my replacement card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "35_para_1",
+    "text": "Can you provide an update on my replacement card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "35_para_2",
+    "text": "Please let me know the status of my replacement card.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "36_orig",
+    "text": "How long does it take for a new card to ship?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "36_para_1",
+    "text": "What is the estimated delivery time for a newly issued card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "36_para_2",
+    "text": "How many days does it usually take for a new card to be shipped?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "37_orig",
+    "text": "What's the tracking on the card you sent?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "37_para_1",
+    "text": "Can you give me the tracking information for the card you dispatched?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "37_para_2",
+    "text": "Do you have a tracking number for the card you shipped?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "38_orig",
+    "text": "I haven't received my card and am worried it is lost.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "38_para_1",
+    "text": "My card hasn't arrived and I'm concerned it might be lost.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "38_para_2",
+    "text": "I haven't gotten my card yet and I'm worried it may have been lost.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "39_orig",
+    "text": "My card still hasn't been delivered",
+    "is_paraphrase": false
+  },
+  {
+    "id": "39_para_1",
+    "text": "I still haven't received my card.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "39_para_2",
+    "text": "My card hasn't arrived yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "40_orig",
+    "text": "I need to find out where the card is that I ordered.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "40_para_1",
+    "text": "Where is the card I ordered, and can you provide its current location?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "40_para_2",
+    "text": "Can you tell me the status and whereabouts of the card I ordered?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "41_orig",
+    "text": "Where is my credit card that was to be mailed?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "41_para_1",
+    "text": "What happened to the credit card that was supposed to be mailed?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "41_para_2",
+    "text": "Can you tell me where my credit card that should have been mailed is?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "42_orig",
+    "text": "I ordered my card but it hasn't been delivered yet",
+    "is_paraphrase": false
+  },
+  {
+    "id": "42_para_1",
+    "text": "I ordered a card but it hasn't arrived yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "42_para_2",
+    "text": "I placed an order for a card and it hasn't been delivered yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "43_orig",
+    "text": "Am I able to track the card that was just sent to me?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "43_para_1",
+    "text": "Can I track the card that was just sent to me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "43_para_2",
+    "text": "Is it possible to track the card that was just sent to me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "44_orig",
+    "text": "Can you tell me why I haven't received my new card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "44_para_1",
+    "text": "Could you explain why I haven't received my new card yet?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "44_para_2",
+    "text": "Do you have any information on why my new card hasn't arrived?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "45_orig",
+    "text": "I'm still waiting for my new card.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "45_para_1",
+    "text": "I haven't received my new card yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "45_para_2",
+    "text": "My new card still hasn't arrived.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "46_orig",
+    "text": "Is my card lost? I am still waiting for it to be delivered.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "46_para_1",
+    "text": "Is my card missing? I still haven\u2019t received it.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "46_para_2",
+    "text": "Has my card been lost? I\u2019m still waiting for delivery.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "47_orig",
+    "text": "Should I keep waiting for my card to be delivered?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "47_para_1",
+    "text": "Is it still worth waiting for my card to arrive?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "47_para_2",
+    "text": "Should I continue to wait for my card to be delivered?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "48_orig",
+    "text": "Can I track when my card will be delivered?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "48_para_1",
+    "text": "Will I be able to track the delivery of my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "48_para_2",
+    "text": "Can I find out when my card will arrive?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "49_orig",
+    "text": "How can I check on the status of my new card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "49_para_1",
+    "text": "What steps do I need to take to see the status of my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "49_para_2",
+    "text": "Where can I check to find out if my new card has shipped?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "50_orig",
+    "text": "A card has been sent to me, how do I track it?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "50_para_1",
+    "text": "I received a card in the mail; how can I track its delivery?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "50_para_2",
+    "text": "My card has been shipped; what's the best way to track it?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "51_orig",
+    "text": "Is there a way I can get my card expedited?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "51_para_1",
+    "text": "Can I have my card expedited?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "51_para_2",
+    "text": "How can I get my card expedited?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "52_orig",
+    "text": "What can I do to track the card you sent me?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "52_para_1",
+    "text": "How can I track the card that was sent to me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "52_para_2",
+    "text": "What steps can I take to track the card you dispatched?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "53_orig",
+    "text": "why hasnt my card come in yet?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "53_para_1",
+    "text": "When will my card arrive?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "53_para_2",
+    "text": "Why hasn't my card arrived yet?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "54_orig",
+    "text": "How can I periodically check the delivery of the card you sent?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "54_para_1",
+    "text": "What steps can I take to regularly track the delivery of the card you sent?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "54_para_2",
+    "text": "How can I periodically monitor the status of the card you shipped?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "55_orig",
+    "text": "What's the reason my new card hasn't come?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "55_para_1",
+    "text": "What\u2019s the reason my new card hasn\u2019t arrived?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "55_para_2",
+    "text": "Why hasn\u2019t my new card been delivered yet?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "56_orig",
+    "text": "How long does it take for me to get my new card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "56_para_1",
+    "text": "When will I receive my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "56_para_2",
+    "text": "How soon can I expect my new card to arrive?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "57_orig",
+    "text": "I don't have my card after 1 week. What are my next steps?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "57_para_1",
+    "text": "I haven\u2019t received my card after a week. What should I do next?\\nI\u2019m missing my card after one week. What are the next steps to take?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "58_orig",
+    "text": "I know I'm getting a new card but would like know when I can expect to receive it.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "58_para_1",
+    "text": "I'm aware a new card is coming, but could you let me know when I should expect it?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "58_para_2",
+    "text": "I understand I'll get a new card\u2014when can I expect it to arrive?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "59_orig",
+    "text": "I want to find out what happened to my new card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "59_para_1",
+    "text": "Where is my new card and when can I expect it?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "59_para_2",
+    "text": "Can you tell me the status of my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "60_orig",
+    "text": "Was there a way for me to get tracking for that?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "60_para_1",
+    "text": "Could I have gotten a tracking number for that?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "60_para_2",
+    "text": "Was it possible for me to receive tracking on that?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "61_orig",
+    "text": "I am still waiting for my card.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "61_para_1",
+    "text": "I still haven't received my card.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "61_para_2",
+    "text": "My card hasn't arrived yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "62_orig",
+    "text": "My card hasn't arrived.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "62_para_1",
+    "text": "I still haven't received my card.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "62_para_2",
+    "text": "My card hasn't come in yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "63_orig",
+    "text": "Can I track the card you sent to me?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "63_para_1",
+    "text": "Is there a way for me to track the card that was sent to me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "63_para_2",
+    "text": "How can I track the card you sent me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "64_orig",
+    "text": "I haven't gotten my new card.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "64_para_1",
+    "text": "My new card hasn't arrived yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "64_para_2",
+    "text": "I still haven\u2019t received my new card.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "65_orig",
+    "text": "How long should it take for my new card to arrive in them mail? What should I do if I never receive it?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "65_para_1",
+    "text": "How long will it take for my new card to arrive by mail, and what steps should I take if it never reaches me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "65_para_2",
+    "text": "When should I expect to receive my new card in the post, and what should I do if it doesn't arrive?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "66_orig",
+    "text": "Will I have to wait much longer for my new card to arrive?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "66_para_1",
+    "text": "Will the delivery of my new card take considerably longer than expected?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "66_para_2",
+    "text": "Is there a significant delay in receiving my replacement card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "67_orig",
+    "text": "how to track the card you sent",
+    "is_paraphrase": false
+  },
+  {
+    "id": "67_para_1",
+    "text": "What steps do I need to take to track the card you've sent me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "67_para_2",
+    "text": "Can you explain how I can track the card that was sent?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "68_orig",
+    "text": "2 weeks ago I ordered my new card.  It isn't here.  What should I do?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "68_para_1",
+    "text": "I ordered my new card two weeks ago, but it hasn't arrived yet. What should I do?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "68_para_2",
+    "text": "Two weeks ago I ordered a new card and it still isn\u2019t here. What do I do?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "69_orig",
+    "text": "How can I check on the delivery status of my card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "69_para_1",
+    "text": "What is the way to verify the delivery status of my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "69_para_2",
+    "text": "How can I see if my card has been delivered?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "70_orig",
+    "text": "My card has not been delivered yet and its been a week since I ordered it, please help",
+    "is_paraphrase": false
+  },
+  {
+    "id": "70_para_1",
+    "text": "I ordered my card a week ago and still haven\u2019t received it; can you help?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "70_para_2",
+    "text": "My card hasn\u2019t arrived even after a week of ordering; please assist me.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "71_orig",
+    "text": "What's the expected wait time to recieve my new card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "71_para_1",
+    "text": "How long will it take to receive my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "71_para_2",
+    "text": "What is the expected delivery time for my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "72_orig",
+    "text": "How can I see the progress of delivery of the card that was sent?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "72_para_1",
+    "text": "How can I track the delivery status of the card that was sent?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "72_para_2",
+    "text": "What steps can I take to monitor the delivery progress of my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "73_orig",
+    "text": "My card was supposed to arrive, but hasn't?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "73_para_1",
+    "text": "I was expecting my card to arrive, but it hasn't yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "73_para_2",
+    "text": "My card was due to arrive, yet it hasn't come.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "74_orig",
+    "text": "I ordered a card and would like to know how to track the delivery progress of it.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "74_para_1",
+    "text": "I placed an order for a card and I want to track its delivery status.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "74_para_2",
+    "text": "How can I check the progress of my card delivery after ordering it?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "75_orig",
+    "text": "How long will it take for me to get my card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "75_para_1",
+    "text": "When can I expect my card to arrive?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "75_para_2",
+    "text": "What is the expected delivery time for my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "76_orig",
+    "text": "My card hasn't shown up yet.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "76_para_1",
+    "text": "I haven't received my card yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "76_para_2",
+    "text": "The card I ordered hasn't arrived.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "77_orig",
+    "text": "Does the card you sent have a tracking number?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "77_para_1",
+    "text": "Does the card you sent come with a tracking number?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "77_para_2",
+    "text": "Is a tracking number attached to the card you sent?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "78_orig",
+    "text": "My card hasn't arrived in the mail yet. I ordered it two weeks ago. What can I do?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "78_para_1",
+    "text": "I ordered my card two weeks ago and it still hasn't arrived. What can I do?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "78_para_2",
+    "text": "Two weeks have passed since I ordered my card, but I haven\u2019t received it yet. What steps should I take?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "79_orig",
+    "text": "maximum how many days get the courier?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "79_para_1",
+    "text": "What is the maximum number of days it takes to receive the courier?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "79_para_2",
+    "text": "How many days at most does it take for the courier to arrive?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "80_orig",
+    "text": "Is there a reason my new card hasn't arrived yet?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "80_para_1",
+    "text": "Why hasn't my new card arrived yet?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "80_para_2",
+    "text": "Can you explain why my new card hasn't been delivered?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "81_orig",
+    "text": "I've been waiting a while for my card, is there a way to know when it will arrive?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "81_para_1",
+    "text": "Can you tell me when my card will arrive, as I've been waiting for a long time?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "81_para_2",
+    "text": "Do you have an estimated delivery date for my card, since I've been waiting?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "82_orig",
+    "text": "How can I track my card's delivery?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "82_para_1",
+    "text": "What steps do I need to take to track the delivery of my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "82_para_2",
+    "text": "How do I track the delivery of my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "83_orig",
+    "text": "Can I track the card that was just sent to me?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "83_para_1",
+    "text": "Is there a way to track the card that was just sent to me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "83_para_2",
+    "text": "Can I receive tracking details for the card that was recently shipped to me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "84_orig",
+    "text": "If I ordered my new card last week, how much longer should I wait to receive it?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "84_para_1",
+    "text": "I ordered a new card last week\u2014how much longer will it take to arrive?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "84_para_2",
+    "text": "I placed an order for a new card last week; when can I expect it to be delivered?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "85_orig",
+    "text": "What's go on, where is my new card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "85_para_1",
+    "text": "What's going on\u2014where\u2019s my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "85_para_2",
+    "text": "Where\u2019s my new card and what's the status?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "86_orig",
+    "text": "Where is my new card if I haven't received it yet?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "86_para_1",
+    "text": "Where is my new card that I haven't received yet?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "86_para_2",
+    "text": "Has my new card been delivered? I still haven't received it.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "87_orig",
+    "text": "Where is my card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "87_para_1",
+    "text": "What is the location of my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "87_para_2",
+    "text": "Where can I find my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "88_orig",
+    "text": "Can you tell me why I haven't received my new card yet?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "88_para_1",
+    "text": "Why hasn't my new card arrived yet?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "88_para_2",
+    "text": "Could you let me know why I haven't gotten my new card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "89_orig",
+    "text": "Is there a way to track my card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "89_para_1",
+    "text": "Is there any way to track my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "89_para_2",
+    "text": "How can I track my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "90_orig",
+    "text": "Is there a way to track the new card you sent me?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "90_para_1",
+    "text": "How can I track the new card that was sent to me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "90_para_2",
+    "text": "Is there a way to check the status of the new card you mailed?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "91_orig",
+    "text": "I'm still waiting for my card.",
+    "is_paraphrase": false
+  },
+  {
+    "id": "91_para_1",
+    "text": "I haven't received my card yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "91_para_2",
+    "text": "My card hasn't arrived yet.",
+    "is_paraphrase": true
+  },
+  {
+    "id": "92_orig",
+    "text": "What do I need to do to get my new card which I have requested 2 weeks ago?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "92_para_1",
+    "text": "What steps should I take to receive the new card I ordered two weeks ago?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "92_para_2",
+    "text": "How can I obtain the new card that I requested two weeks back?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "93_orig",
+    "text": "WHAT IS THE SOLUTION OF THIS PROBLEM",
+    "is_paraphrase": false
+  },
+  {
+    "id": "93_para_1",
+    "text": "WHAT IS THE SOLUTION TO THIS PROBLEM",
+    "is_paraphrase": true
+  },
+  {
+    "id": "93_para_2",
+    "text": "HOW CAN I SOLVE THIS ISSUE",
+    "is_paraphrase": true
+  },
+  {
+    "id": "94_orig",
+    "text": "Could I get tracking on the card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "94_para_1",
+    "text": "Can I receive tracking information for the card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "94_para_2",
+    "text": "Is it possible to track the delivery of the card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "95_orig",
+    "text": "Can you help me track my card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "95_para_1",
+    "text": "Could you help me track my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "95_para_2",
+    "text": "Can you assist me in locating my card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "96_orig",
+    "text": "Shouldn't my new card be here by now?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "96_para_1",
+    "text": "Is my new card supposed to have arrived by now?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "96_para_2",
+    "text": "Shouldn't I have received my new card already?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "97_orig",
+    "text": "Is there a reason my new card hasn't arrived?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "97_para_1",
+    "text": "Why hasn't my new card arrived yet?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "97_para_2",
+    "text": "Could you explain why my new card hasn't been delivered?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "98_orig",
+    "text": "I would like to track a card sent to me, how do I do that?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "98_para_1",
+    "text": "How do I track the card that was sent to me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "98_para_2",
+    "text": "Could you explain how I can track the card that was mailed to me?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "99_orig",
+    "text": "Is there a tracking number for the card?",
+    "is_paraphrase": false
+  },
+  {
+    "id": "99_para_1",
+    "text": "Do you have a tracking number for the card?",
+    "is_paraphrase": true
+  },
+  {
+    "id": "99_para_2",
+    "text": "Is there a tracking number available for the card?",
+    "is_paraphrase": true
+  }
+]

@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pydantic
+pyyaml
+groq
+faiss-cpu
+sentence-transformers
+numpy
+datasets
+requests

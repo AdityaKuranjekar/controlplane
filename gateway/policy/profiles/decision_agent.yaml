@@ -1,0 +1,9 @@
+name: decision_agent
+latency_budget_ms: 3000
+thresholds:
+  privacy_block: 0.0
+  safety_block: 0.3        # strictest, this is the high-blast-radius profile
+actions:
+  on_privacy_hit: REDACT
+  on_safety_hit: BLOCK
+  default: ALLOW
