@@ -1,10 +1,13 @@
 import streamlit as st
 import requests
 
+import os
+
 @st.cache_resource
 def warm_gateway_connection():
+    gateway_url = os.environ.get("GATEWAY_URL", "http://localhost:8080")
     try:
-        requests.post("http://localhost:8080/v1/chat/completions",
+        requests.post(f"{gateway_url}/v1/chat/completions",
                        json={"messages": [{"role": "user", "content": "warmup"}],
                              "cp_profile": "customer_bot", "stream": False},
                        timeout=10)

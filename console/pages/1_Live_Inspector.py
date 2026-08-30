@@ -57,8 +57,11 @@ if profile == "internal_rag":
 else:
     context = ""
 
+import os
+
 if st.button("Send Request"):
-    url = "http://localhost:8080/v1/chat/completions"
+    gateway_url = os.environ.get("GATEWAY_URL", "http://localhost:8080")
+    url = f"{gateway_url}/v1/chat/completions"
     payload = {
         "model": "controlplane-default",
         "messages": [{"role": "user", "content": query}],
