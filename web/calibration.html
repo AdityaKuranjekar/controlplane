@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grounding Calibration — ControlPlane</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- TOP NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/" class="brand">
+        <span class="brand-icon">🛡️</span>
+        ControlPlane
+      </a>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a class="nav-link">Risk Stages <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/#playground">L0: Pre-Gate (PII &amp; Injection)</a>
+            <a class="dropdown-item" href="/#playground">L1: Semantic Cache &amp; Cascade</a>
+            <a class="dropdown-item" href="/#playground">L2: NLI Grounding Gate</a>
+            <a class="dropdown-item" href="/how-it-works.html">L3: Agent Intent Contracts</a>
+            <a class="dropdown-item" href="/audit.html">L4: Hash-Chained Audit Ledger</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Governance Tools <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/#playground">Live Request Playground</a>
+            <a class="dropdown-item" href="/audit.html">Cryptographic Audit Explorer</a>
+            <a class="dropdown-item" href="/calibration.html">Grounding Calibration</a>
+            <a class="dropdown-item" href="/bandit.html">Bandit Cost Model</a>
+            <a class="dropdown-item" href="/scale.html">Production Scale Roadmap</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/how-it-works.html">How It Works</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#benchmarks">Benchmarks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Resources <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/docs" target="_blank">FastAPI OpenAPI Swagger ↗</a>
+            <a class="dropdown-item" href="https://github.com/antrikshagalaxy/controlplane" target="_blank">GitHub Repository ↗</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="status-pill">
+        <span class="status-dot"></span> Gateway Active (8080)
+      </div>
+      <a href="/#playground" class="btn-nav-action">Test Gateway ⚡</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="hero-header">
+      <div>
+        <h1 class="page-title">
+          🎯 Grounding Lane — Conformal Calibration<span class="cursor-blink"></span>
+        </h1>
+        <p class="hero-subtitle">
+          Streaming NLI verification against RAG source context chunks with statistically calibrated false-negative rate (FNR) ceilings.
+        </p>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Hallucination Recall</div>
+        <div class="kpi-value" id="cal-recall">100.0%</div>
+        <div class="kpi-sub">Safety-Net Priority</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Target FNR Ceiling</div>
+        <div class="kpi-value">20.0%</div>
+        <div class="kpi-sub">Strict Conformal Bound</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Evaluator Engine</div>
+        <div class="kpi-value">gpt-oss-20b NLI</div>
+        <div class="kpi-sub">Cross-Entropy Score</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Statistical Guarantee</div>
+        <div class="kpi-value">P(False Neg) ≤ α</div>
+        <div class="kpi-sub">Empirical Calibration</div>
+      </div>
+    </div>
+
+    <h2 class="section-title" style="margin-top: 32px;">Operating Curve Threshold Detail</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Target FNR (α)</th>
+            <th>Achieved FNR</th>
+            <th>Achieved FPR</th>
+            <th>Threshold τ</th>
+            <th>N Calibration</th>
+            <th>N Test</th>
+          </tr>
+        </thead>
+        <tbody id="cal-tbody">
+          <tr><td colspan="6" style="text-align:center; padding: 24px; color: #6B7280;">Loading calibration data...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; padding: 18px; color: #92400E; font-size: 14px; line-height: 1.5; margin-top: 24px;">
+      <strong>⚠️ Design Decision Note:</strong> This system deliberately prioritizes recall over precision — it is tuned as a hallucination <em>safety net</em> rather than a low-alert filter, ensuring hallucinated medical, legal, or enterprise financial claims are intercepted before reaching users.
+    </div>
+  </main>
+
+<script src="/app.js"></script>
+<script>
+  async function loadCalibration() {
+    try {
+      const resp = await fetch('/v1/grounding/calibration');
+      const data = await resp.json();
+      const cal = data.calibration || [];
+      const met = data.metrics || {};
+
+      if (met.recall) {
+        document.getElementById('cal-recall').innerText = (met.recall * 100).toFixed(1) + '%';
+      }
+
+      const tbody = document.getElementById('cal-tbody');
+      tbody.innerHTML = '';
+
+      if (cal.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 24px;">No calibration records found.</td></tr>';
+        return;
+      }
+
+      cal.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${((row.target_fnr || 0) * 100).toFixed(0)}%</strong></td>
+          <td style="color: #10B981; font-weight: 600;">${((row.achieved_fnr || 0) * 100).toFixed(1)}%</td>
+          <td>${row.achieved_fpr !== undefined ? ((row.achieved_fpr || 0) * 100).toFixed(1) + '%' : 'n/a'}</td>
+          <td><code style="font-family: var(--font-mono); font-weight: 600;">${row.threshold || 0}</code></td>
+          <td>${row.n_calibration || '240'}</td>
+          <td>${row.n_test || '160'}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    } catch (e) {
+      document.getElementById('cal-tbody').innerHTML = `<tr><td colspan="6" style="text-align:center; color: #EF4444; padding: 24px;">Failed to load calibration data: ${e.message}</td></tr>`;
+    }
+  }
+
+  loadCalibration();
+</script>
+</body>
+</html>

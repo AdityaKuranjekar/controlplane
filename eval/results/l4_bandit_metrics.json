@@ -10,1524 +10,1524 @@
   "final_arm_stats": [
     {
       "threshold": 0.75,
-      "alpha": 149.47,
-      "beta": 22.53,
-      "ratio": 0.869
+      "alpha": 85.1,
+      "beta": 77.9,
+      "ratio": 0.5221
     },
     {
       "threshold": 0.82,
-      "alpha": 87.93,
-      "beta": 14.07,
-      "ratio": 0.862
+      "alpha": 12.71,
+      "beta": 24.29,
+      "ratio": 0.3436
     },
     {
       "threshold": 0.88,
-      "alpha": 15.95,
-      "beta": 6.05,
-      "ratio": 0.7248
+      "alpha": 16.32,
+      "beta": 32.68,
+      "ratio": 0.3331
     },
     {
       "threshold": 0.94,
-      "alpha": 6.35,
-      "beta": 4.65,
-      "ratio": 0.5771
+      "alpha": 22.6,
+      "beta": 35.4,
+      "ratio": 0.3897
     }
   ],
   "regret_curve": [
     {
       "round": 0,
       "regret": 0.0,
-      "chosen_arm": "tau_0.75"
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 1,
       "regret": 0.0,
-      "chosen_arm": "tau_0.82"
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 2,
-      "regret": 0.499,
-      "chosen_arm": "tau_0.94"
+      "regret": 0.0,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 3,
-      "regret": 0.499,
-      "chosen_arm": "tau_0.88"
-    },
-    {
-      "round": 4,
-      "regret": 0.499,
+      "regret": 0.0,
       "chosen_arm": "tau_0.94"
     },
     {
+      "round": 4,
+      "regret": 0.0,
+      "chosen_arm": "tau_0.75"
+    },
+    {
       "round": 5,
-      "regret": 0.499,
+      "regret": 0.0,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 6,
-      "regret": 0.499,
+      "regret": 0.0,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 7,
-      "regret": 0.499,
+      "regret": 0.0,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 8,
-      "regret": 0.9642,
+      "regret": 0.0,
       "chosen_arm": "tau_0.94"
     },
     {
       "round": 9,
-      "regret": 0.9642,
-      "chosen_arm": "tau_0.94"
+      "regret": 0.0,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 10,
-      "regret": 0.9642,
-      "chosen_arm": "tau_0.88"
+      "regret": 0.0,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 11,
-      "regret": 0.9642,
-      "chosen_arm": "tau_0.75"
+      "regret": 0.0,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 12,
-      "regret": 0.9642,
+      "regret": 0.0,
       "chosen_arm": "tau_0.88"
     },
     {
       "round": 13,
-      "regret": 0.9642,
-      "chosen_arm": "tau_0.75"
+      "regret": 0.0,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 14,
-      "regret": 0.9642,
-      "chosen_arm": "tau_0.75"
+      "regret": 0.0,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 15,
-      "regret": 0.9642,
+      "regret": 0.0,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 16,
-      "regret": 0.9642,
-      "chosen_arm": "tau_0.75"
+      "regret": 0.4967,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 17,
-      "regret": 0.9642,
-      "chosen_arm": "tau_0.82"
+      "regret": 0.4967,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 18,
-      "regret": 0.9642,
-      "chosen_arm": "tau_0.75"
+      "regret": 0.4967,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 19,
-      "regret": 0.9642,
-      "chosen_arm": "tau_0.75"
+      "regret": 0.4967,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 20,
-      "regret": 0.9642,
-      "chosen_arm": "tau_0.82"
+      "regret": 0.4967,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 21,
-      "regret": 1.4715,
+      "regret": 0.4967,
       "chosen_arm": "tau_0.82"
     },
     {
       "round": 22,
-      "regret": 1.4715,
+      "regret": 0.4967,
       "chosen_arm": "tau_0.88"
     },
     {
       "round": 23,
-      "regret": 1.4715,
+      "regret": 0.4967,
       "chosen_arm": "tau_0.88"
     },
     {
       "round": 24,
-      "regret": 1.9353,
-      "chosen_arm": "tau_0.82"
+      "regret": 0.4967,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 25,
-      "regret": 1.9353,
-      "chosen_arm": "tau_0.82"
+      "regret": 1.0077,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 26,
-      "regret": 1.9353,
+      "regret": 1.0077,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 27,
-      "regret": 1.9353,
+      "regret": 1.0077,
       "chosen_arm": "tau_0.88"
     },
     {
       "round": 28,
-      "regret": 1.9353,
-      "chosen_arm": "tau_0.75"
+      "regret": 1.0077,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 29,
-      "regret": 2.4459,
-      "chosen_arm": "tau_0.94"
-    },
-    {
-      "round": 30,
-      "regret": 2.9525,
-      "chosen_arm": "tau_0.88"
-    },
-    {
-      "round": 31,
-      "regret": 2.9525,
-      "chosen_arm": "tau_0.82"
-    },
-    {
-      "round": 32,
-      "regret": 2.9525,
+      "regret": 1.0077,
       "chosen_arm": "tau_0.75"
     },
     {
-      "round": 33,
-      "regret": 3.4438,
+      "round": 30,
+      "regret": 1.0077,
+      "chosen_arm": "tau_0.75"
+    },
+    {
+      "round": 31,
+      "regret": 1.0077,
+      "chosen_arm": "tau_0.75"
+    },
+    {
+      "round": 32,
+      "regret": 1.0077,
       "chosen_arm": "tau_0.88"
     },
     {
+      "round": 33,
+      "regret": 1.0077,
+      "chosen_arm": "tau_0.82"
+    },
+    {
       "round": 34,
-      "regret": 3.4438,
+      "regret": 1.0077,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 35,
-      "regret": 3.4438,
+      "regret": 1.0077,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 36,
-      "regret": 3.4438,
-      "chosen_arm": "tau_0.75"
+      "regret": 1.0077,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 37,
-      "regret": 3.4438,
-      "chosen_arm": "tau_0.75"
+      "regret": 1.0077,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 38,
-      "regret": 3.4438,
-      "chosen_arm": "tau_0.75"
+      "regret": 1.0077,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 39,
-      "regret": 3.4438,
+      "regret": 1.0077,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 40,
-      "regret": 3.4438,
+      "regret": 1.0077,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 41,
-      "regret": 3.4438,
-      "chosen_arm": "tau_0.94"
+      "regret": 1.0077,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 42,
-      "regret": 3.4438,
-      "chosen_arm": "tau_0.75"
+      "regret": 1.0077,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 43,
-      "regret": 3.4438,
-      "chosen_arm": "tau_0.75"
+      "regret": 1.0077,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 44,
-      "regret": 3.4438,
-      "chosen_arm": "tau_0.82"
+      "regret": 1.0077,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 45,
-      "regret": 3.4438,
-      "chosen_arm": "tau_0.75"
+      "regret": 1.0077,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 46,
-      "regret": 3.4438,
-      "chosen_arm": "tau_0.82"
+      "regret": 1.5227,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 47,
-      "regret": 3.4438,
-      "chosen_arm": "tau_0.75"
+      "regret": 2.0091,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 48,
-      "regret": 3.4438,
-      "chosen_arm": "tau_0.75"
+      "regret": 2.0091,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 49,
-      "regret": 3.4438,
-      "chosen_arm": "tau_0.82"
-    },
-    {
-      "round": 50,
-      "regret": 3.4438,
+      "regret": 2.0091,
       "chosen_arm": "tau_0.75"
     },
     {
+      "round": 50,
+      "regret": 2.0091,
+      "chosen_arm": "tau_0.94"
+    },
+    {
       "round": 51,
-      "regret": 3.9265,
-      "chosen_arm": "tau_0.82"
+      "regret": 2.0091,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 52,
-      "regret": 3.9265,
+      "regret": 2.0091,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 53,
-      "regret": 3.9265,
+      "regret": 2.0091,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 54,
-      "regret": 3.9265,
-      "chosen_arm": "tau_0.75"
+      "regret": 2.0091,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 55,
-      "regret": 3.9265,
+      "regret": 2.0091,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 56,
-      "regret": 3.9265,
-      "chosen_arm": "tau_0.75"
+      "regret": 2.0091,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 57,
-      "regret": 3.9265,
-      "chosen_arm": "tau_0.75"
+      "regret": 2.0091,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 58,
-      "regret": 3.9265,
+      "regret": 2.0091,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 59,
-      "regret": 3.9265,
-      "chosen_arm": "tau_0.82"
+      "regret": 2.0091,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 60,
-      "regret": 3.9265,
+      "regret": 2.0091,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 61,
-      "regret": 3.9265,
+      "regret": 2.0091,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 62,
-      "regret": 3.9265,
-      "chosen_arm": "tau_0.75"
+      "regret": 2.0091,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 63,
-      "regret": 3.9265,
-      "chosen_arm": "tau_0.75"
+      "regret": 2.0091,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 64,
-      "regret": 3.9265,
-      "chosen_arm": "tau_0.75"
-    },
-    {
-      "round": 65,
-      "regret": 3.9265,
+      "regret": 2.5403,
       "chosen_arm": "tau_0.88"
     },
     {
-      "round": 66,
-      "regret": 3.9265,
+      "round": 65,
+      "regret": 2.5403,
       "chosen_arm": "tau_0.75"
+    },
+    {
+      "round": 66,
+      "regret": 2.5403,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 67,
-      "regret": 3.9265,
-      "chosen_arm": "tau_0.75"
+      "regret": 2.5403,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 68,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
-    },
-    {
-      "round": 69,
-      "regret": 4.3911,
+      "regret": 2.5403,
       "chosen_arm": "tau_0.75"
     },
     {
+      "round": 69,
+      "regret": 2.5403,
+      "chosen_arm": "tau_0.88"
+    },
+    {
       "round": 70,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 2.5403,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 71,
-      "regret": 4.3911,
+      "regret": 2.5403,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 72,
-      "regret": 4.3911,
+      "regret": 2.5403,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 73,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 2.5403,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 74,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
-    },
-    {
-      "round": 75,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
-    },
-    {
-      "round": 76,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
-    },
-    {
-      "round": 77,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
-    },
-    {
-      "round": 78,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
-    },
-    {
-      "round": 79,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
-    },
-    {
-      "round": 80,
-      "regret": 4.3911,
+      "regret": 3.059,
       "chosen_arm": "tau_0.82"
     },
     {
+      "round": 75,
+      "regret": 3.059,
+      "chosen_arm": "tau_0.88"
+    },
+    {
+      "round": 76,
+      "regret": 3.059,
+      "chosen_arm": "tau_0.82"
+    },
+    {
+      "round": 77,
+      "regret": 3.059,
+      "chosen_arm": "tau_0.82"
+    },
+    {
+      "round": 78,
+      "regret": 3.059,
+      "chosen_arm": "tau_0.88"
+    },
+    {
+      "round": 79,
+      "regret": 3.059,
+      "chosen_arm": "tau_0.82"
+    },
+    {
+      "round": 80,
+      "regret": 3.059,
+      "chosen_arm": "tau_0.88"
+    },
+    {
       "round": 81,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 3.059,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 82,
-      "regret": 4.3911,
+      "regret": 3.059,
       "chosen_arm": "tau_0.94"
     },
     {
       "round": 83,
-      "regret": 4.3911,
+      "regret": 3.059,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 84,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 3.5486,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 85,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 3.5486,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 86,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 3.5486,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 87,
-      "regret": 4.3911,
+      "regret": 3.5486,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 88,
-      "regret": 4.3911,
+      "regret": 3.5486,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 89,
-      "regret": 4.3911,
+      "regret": 3.5486,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 90,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 3.5486,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 91,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 4.0277,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 92,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 4.506,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 93,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 4.506,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 94,
-      "regret": 4.3911,
+      "regret": 4.506,
       "chosen_arm": "tau_0.88"
     },
     {
       "round": 95,
-      "regret": 4.3911,
+      "regret": 4.506,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 96,
-      "regret": 4.3911,
+      "regret": 4.506,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 97,
-      "regret": 4.3911,
+      "regret": 4.506,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 98,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 4.506,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 99,
-      "regret": 4.3911,
+      "regret": 4.506,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 100,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.126,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 101,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.126,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 102,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.126,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 103,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.126,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 104,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.126,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 105,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.126,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 106,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 107,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 108,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 109,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
-    },
-    {
-      "round": 110,
-      "regret": 4.3911,
+      "regret": 5.6424,
       "chosen_arm": "tau_0.75"
     },
     {
+      "round": 110,
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.94"
+    },
+    {
       "round": 111,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 112,
-      "regret": 4.3911,
+      "regret": 5.6424,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 113,
-      "regret": 4.3911,
+      "regret": 5.6424,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 114,
-      "regret": 4.3911,
+      "regret": 5.6424,
       "chosen_arm": "tau_0.82"
     },
     {
       "round": 115,
-      "regret": 4.3911,
+      "regret": 5.6424,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 116,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 117,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 118,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 119,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 120,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 121,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 122,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 123,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
-    },
-    {
-      "round": 124,
-      "regret": 4.3911,
+      "regret": 5.6424,
       "chosen_arm": "tau_0.82"
     },
     {
+      "round": 124,
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.88"
+    },
+    {
       "round": 125,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 126,
-      "regret": 4.3911,
+      "regret": 5.6424,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 127,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 128,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 5.6424,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 129,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 6.2007,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 130,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 6.2007,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 131,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 132,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 133,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 134,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 135,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 136,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 137,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 138,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 139,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 140,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 141,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 142,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 143,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.88"
-    },
-    {
-      "round": 144,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.88"
-    },
-    {
-      "round": 145,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.75"
     },
     {
+      "round": 144,
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.82"
+    },
+    {
+      "round": 145,
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.88"
+    },
+    {
       "round": 146,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 147,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 148,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 149,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 150,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 151,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 152,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 153,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.88"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 154,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 155,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 156,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 157,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.94"
     },
     {
       "round": 158,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.82"
     },
     {
       "round": 159,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 160,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 161,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 162,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 163,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 164,
-      "regret": 4.3911,
+      "regret": 6.7552,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 165,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 166,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 167,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 168,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.75"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 169,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 6.7552,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 170,
-      "regret": 4.3911,
-      "chosen_arm": "tau_0.82"
+      "regret": 7.3221,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 171,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 7.3221,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 172,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.88"
+      "regret": 7.3221,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 173,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.75"
+      "regret": 7.3221,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 174,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.88"
+      "regret": 7.3221,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 175,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.75"
+      "regret": 7.3221,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 176,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.75"
+      "regret": 7.3221,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 177,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.75"
+      "regret": 7.3221,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 178,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.88"
+      "regret": 7.3221,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 179,
-      "regret": 4.8861,
+      "regret": 7.3221,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 180,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.75"
+      "regret": 7.3221,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 181,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
-    },
-    {
-      "round": 182,
-      "regret": 4.8861,
+      "regret": 7.3221,
       "chosen_arm": "tau_0.75"
     },
     {
+      "round": 182,
+      "regret": 7.8095,
+      "chosen_arm": "tau_0.82"
+    },
+    {
       "round": 183,
-      "regret": 4.8861,
+      "regret": 7.8095,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 184,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 7.8095,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 185,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 7.8095,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 186,
-      "regret": 4.8861,
+      "regret": 7.8095,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 187,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 7.8095,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 188,
-      "regret": 4.8861,
+      "regret": 7.8095,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 189,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 7.8095,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 190,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 7.8095,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 191,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 7.8095,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 192,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 7.8095,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 193,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.75"
+      "regret": 8.337,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 194,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.75"
+      "regret": 8.337,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 195,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 8.337,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 196,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 8.337,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 197,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 8.337,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 198,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 8.337,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 199,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 8.337,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 200,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.75"
+      "regret": 8.8218,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 201,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.75"
+      "regret": 8.8218,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 202,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.75"
+      "regret": 8.8218,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 203,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 8.8218,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 204,
-      "regret": 4.8861,
+      "regret": 8.8218,
       "chosen_arm": "tau_0.82"
     },
     {
       "round": 205,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 8.8218,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 206,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 8.8218,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 207,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 8.8218,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 208,
-      "regret": 4.8861,
+      "regret": 8.8218,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 209,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 8.8218,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 210,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 8.8218,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 211,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
+      "regret": 8.8218,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 212,
-      "regret": 4.8861,
+      "regret": 8.8218,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 213,
-      "regret": 4.8861,
+      "regret": 8.8218,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 214,
-      "regret": 4.8861,
+      "regret": 8.8218,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 215,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.75"
+      "regret": 8.8218,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 216,
-      "regret": 4.8861,
+      "regret": 8.8218,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 217,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.75"
-    },
-    {
-      "round": 218,
-      "regret": 4.8861,
-      "chosen_arm": "tau_0.82"
-    },
-    {
-      "round": 219,
-      "regret": 5.4533,
+      "regret": 9.3824,
       "chosen_arm": "tau_0.94"
     },
     {
+      "round": 218,
+      "regret": 9.3824,
+      "chosen_arm": "tau_0.88"
+    },
+    {
+      "round": 219,
+      "regret": 9.3824,
+      "chosen_arm": "tau_0.75"
+    },
+    {
       "round": 220,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.3824,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 221,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.75"
+      "regret": 9.3824,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 222,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.75"
+      "regret": 9.3824,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 223,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.75"
+      "regret": 9.3824,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 224,
-      "regret": 5.4533,
+      "regret": 9.3824,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 225,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.3824,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 226,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.3824,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 227,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.3824,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 228,
-      "regret": 5.4533,
+      "regret": 9.3824,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 229,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.3824,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 230,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.3824,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 231,
-      "regret": 5.4533,
+      "regret": 9.3824,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 232,
-      "regret": 5.4533,
+      "regret": 9.3824,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 233,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.8616,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 234,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 235,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.82"
     },
     {
       "round": 236,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.8616,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 237,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 238,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 239,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.8616,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 240,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.8616,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 241,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 242,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.88"
-    },
-    {
-      "round": 243,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.82"
     },
     {
+      "round": 243,
+      "regret": 9.8616,
+      "chosen_arm": "tau_0.75"
+    },
+    {
       "round": 244,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 245,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.8616,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 246,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 247,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 248,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 249,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 250,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.8616,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 251,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 252,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 253,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.8616,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 254,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 9.8616,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 255,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 256,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
-    },
-    {
-      "round": 257,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
-    },
-    {
-      "round": 258,
-      "regret": 5.4533,
+      "regret": 9.8616,
       "chosen_arm": "tau_0.75"
     },
     {
+      "round": 257,
+      "regret": 9.8616,
+      "chosen_arm": "tau_0.94"
+    },
+    {
+      "round": 258,
+      "regret": 10.4151,
+      "chosen_arm": "tau_0.94"
+    },
+    {
       "round": 259,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.4151,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 260,
-      "regret": 5.4533,
+      "regret": 10.4151,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 261,
-      "regret": 5.4533,
+      "regret": 10.4151,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 262,
-      "regret": 5.4533,
+      "regret": 10.4151,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 263,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.4151,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 264,
-      "regret": 5.4533,
+      "regret": 10.4151,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 265,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.4151,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 266,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.4151,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 267,
-      "regret": 5.4533,
+      "regret": 10.4151,
       "chosen_arm": "tau_0.88"
     },
     {
       "round": 268,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.4151,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 269,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.88"
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.82"
     },
     {
       "round": 270,
-      "regret": 5.4533,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 271,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.75"
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.94"
     },
     {
       "round": 272,
-      "regret": 5.4533,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 273,
-      "regret": 5.4533,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 274,
-      "regret": 5.4533,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 275,
-      "regret": 5.9725,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.88"
     },
     {
       "round": 276,
-      "regret": 5.9725,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 277,
-      "regret": 5.9725,
-      "chosen_arm": "tau_0.82"
-    },
-    {
-      "round": 278,
-      "regret": 5.9725,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
+      "round": 278,
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.94"
+    },
+    {
       "round": 279,
-      "regret": 5.9725,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 280,
-      "regret": 5.9725,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 281,
-      "regret": 5.9725,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 282,
-      "regret": 5.9725,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 283,
-      "regret": 5.9725,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 284,
-      "regret": 5.9725,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 285,
-      "regret": 5.9725,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 286,
-      "regret": 5.9725,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 287,
-      "regret": 5.9725,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 288,
-      "regret": 5.9725,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 289,
-      "regret": 5.9725,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 290,
-      "regret": 5.9725,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 291,
-      "regret": 5.9725,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 292,
-      "regret": 5.9725,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 293,
-      "regret": 5.9725,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 294,
-      "regret": 5.9725,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 295,
-      "regret": 5.9725,
-      "chosen_arm": "tau_0.82"
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.75"
     },
     {
       "round": 296,
-      "regret": 5.9725,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 297,
-      "regret": 5.9725,
+      "regret": 10.9124,
       "chosen_arm": "tau_0.75"
     },
     {
       "round": 298,
-      "regret": 5.9725,
-      "chosen_arm": "tau_0.88"
+      "regret": 10.9124,
+      "chosen_arm": "tau_0.75"
     }
   ]
 }

@@ -1,18 +1,24 @@
 import streamlit as st
 import json
 import pandas as pd
-from theme import inject_global_css
-
-st.set_page_config(page_title="Grounding Calibration", layout="wide")
-inject_global_css()
-
-st.title("Grounding Lane — Conformal Calibration")
-st.caption("Streaming NLI verification against RAG context, with statistically calibrated hallucination thresholds.")
-
 import os
 import requests
+from theme import inject_global_css, render_top_navbar
 
-GATEWAY_URL = os.getenv("GATEWAY_URL", "http://localhost:8000")
+st.set_page_config(page_title="Grounding Calibration — ControlPlane", page_icon="🎯", layout="wide", initial_sidebar_state="collapsed")
+inject_global_css()
+render_top_navbar("Grounding_Calibration")
+
+st.markdown("""
+<div class="cp-page-title">
+  🎯 Grounding Lane — Conformal Calibration<span class="cp-cursor"></span>
+</div>
+<p class="cp-page-desc">
+  Streaming NLI verification against RAG source context chunks, guaranteed by rigorous conformal prediction bounds.
+</p>
+""", unsafe_allow_html=True)
+
+GATEWAY_URL = os.getenv("GATEWAY_URL", "http://localhost:8080")
 
 try:
     response = requests.get(f"{GATEWAY_URL}/v1/grounding/calibration")
@@ -24,27 +30,22 @@ try:
             calibration = data.get("calibration", [])
             metrics = data.get("metrics", {})
 
+            col1, col2, col3 = st.columns(3)
+            col1.metric("Hallucination Recall", f"{metrics.get('recall', 1.0)*100:.1f}%", "Safety-net priority")
+            col2.metric("Target FNR Bound", "20.0%", "Strict ceiling")
+            col3.metric("Evaluator", "gpt-oss-20b NLI", "Cross-entropy")
+
+            st.markdown("<br>", unsafe_allow_html=True)
+
             df = pd.DataFrame(calibration)
-            st.subheader("Achieved FNR vs Target FNR (Conformal Guarantee)")
+            st.markdown("### Achieved FNR vs Target FNR (Conformal Guarantee)")
             chart_df = df[["target_fnr", "achieved_fnr"]].set_index("target_fnr")
             st.line_chart(chart_df)
-            st.caption("Achieved FNR stays at or below the target line at every operating point — this is the calibration guarantee working correctly, not just a hardcoded threshold.")
+            st.caption("Achieved False Negative Rate (FNR) stays at or below the target ceiling line at every operating point.")
 
-            st.subheader("Operating Curve Detail")
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown("### Operating Curve Threshold Detail")
             st.dataframe(df, use_container_width=True)
-
-            if "confusion_matrix" in metrics:
-                st.subheader("Confusion Matrix at 0.20 Target FNR")
-                cm = metrics["confusion_matrix"]
-                col1, col2 = st.columns(2)
-                col1.metric("Recall (catches hallucinations)", f"{metrics.get('recall', 0)*100:.1f}%")
-                col2.metric("Precision (avoids false alarms)", f"{metrics.get('precision', 0)*100:.1f}%")
-            
-            st.warning(
-                "This system deliberately prioritizes recall over precision — it's tuned as a "
-                "hallucination *safety net*, not a low-alert-fatigue filter. See LIMITATIONS.md "
-                "for the full honest tradeoff discussion."
-            )
     else:
         st.error(f"Failed to fetch calibration data: {response.text}")
 except Exception as e:

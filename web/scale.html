@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Production Scale Roadmap — ControlPlane</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- TOP NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/" class="brand">
+        <span class="brand-icon">🛡️</span>
+        ControlPlane
+      </a>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a class="nav-link">Risk Stages <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/#playground">L0: Pre-Gate (PII &amp; Injection)</a>
+            <a class="dropdown-item" href="/#playground">L1: Semantic Cache &amp; Cascade</a>
+            <a class="dropdown-item" href="/#playground">L2: NLI Grounding Gate</a>
+            <a class="dropdown-item" href="/how-it-works.html">L3: Agent Intent Contracts</a>
+            <a class="dropdown-item" href="/audit.html">L4: Hash-Chained Audit Ledger</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Governance Tools <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/#playground">Live Request Playground</a>
+            <a class="dropdown-item" href="/audit.html">Cryptographic Audit Explorer</a>
+            <a class="dropdown-item" href="/calibration.html">Grounding Calibration</a>
+            <a class="dropdown-item" href="/bandit.html">Bandit Cost Model</a>
+            <a class="dropdown-item" href="/scale.html">Production Scale Roadmap</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/how-it-works.html">How It Works</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#benchmarks">Benchmarks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Resources <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/docs" target="_blank">FastAPI OpenAPI Swagger ↗</a>
+            <a class="dropdown-item" href="https://github.com/antrikshagalaxy/controlplane" target="_blank">GitHub Repository ↗</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="status-pill">
+        <span class="status-dot"></span> Gateway Active (8080)
+      </div>
+      <a href="/#playground" class="btn-nav-action">Test Gateway ⚡</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="hero-header">
+      <div>
+        <h1 class="page-title">
+          🚀 From Prototype to Enterprise Production Scale<span class="cursor-blink"></span>
+        </h1>
+        <p class="hero-subtitle">
+          Systems engineering migration blueprint: scaling from a deadline-tiered Python prototype to high-throughput, horizontally partitioned cloud infrastructure.
+        </p>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Weekly Ingestion Volume</div>
+        <div class="kpi-value">~50,000 req/wk</div>
+        <div class="kpi-sub">Standard Enterprise Load</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Average Ingestion Rate</div>
+        <div class="kpi-value">~0.08 req/s</div>
+        <div class="kpi-sub">Steady State</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Peak Burst Throughput</div>
+        <div class="kpi-value">~0.8 req/s (10x)</div>
+        <div class="kpi-sub">Handled via Pools</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Availability SLO</div>
+        <div class="kpi-value">99.99%</div>
+        <div class="kpi-sub">Stateless Gateway Pods</div>
+      </div>
+    </div>
+
+    <h2 class="section-title" style="margin-top: 32px;">Architecture Migration Matrix: Prototype vs Production</h2>
+    
+    <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 16px;">
+      <div class="kpi-card" style="padding: 20px;">
+        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Gateway Ingestion Layer</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13.5px;">
+          <div style="color: #6B7280;"><strong>🔧 Prototype:</strong> Single FastAPI process, in-process asyncio</div>
+          <div style="color: #111827;"><strong>🏭 Production:</strong> Horizontally scaled Rust / Axum pods behind Envoy / K8s HPA with connection pooling</div>
+        </div>
+      </div>
+
+      <div class="kpi-card" style="padding: 20px;">
+        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Semantic Cache Cluster</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13.5px;">
+          <div style="color: #6B7280;"><strong>🔧 Prototype:</strong> In-process FAISS flat index</div>
+          <div style="color: #111827;"><strong>🏭 Production:</strong> Distributed Qdrant / Pinecone cluster shared across all edge pods with sub-millisecond gRPC routing</div>
+        </div>
+      </div>
+
+      <div class="kpi-card" style="padding: 20px;">
+        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Model Cascade Queue</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13.5px;">
+          <div style="color: #6B7280;"><strong>🔧 Prototype:</strong> Direct synchronous Groq client per request</div>
+          <div style="color: #111827;"><strong>🏭 Production:</strong> Async task queue (Redis / Kafka) with circuit breakers and multi-provider failover</div>
+        </div>
+      </div>
+
+      <div class="kpi-card" style="padding: 20px;">
+        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Compliance Audit Log</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13.5px;">
+          <div style="color: #6B7280;"><strong>🔧 Prototype:</strong> SQLite single file with SHA-256 hash chain</div>
+          <div style="color: #111827;"><strong>🏭 Production:</strong> ClickHouse append-only log with AWS S3 WORM / Object Lock compliance immutability</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<script src="/app.js"></script>
+</body>
+</html>

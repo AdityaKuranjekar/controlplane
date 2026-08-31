@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ControlPlane — AI Risk Middleware</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- TOP NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/" class="brand">
+        <span class="brand-icon">🛡️</span>
+        ControlPlane
+      </a>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a class="nav-link">Risk Stages <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" onclick="selectPreset('injection')">L0: Pre-Gate (PII &amp; Injection)</a>
+            <a class="dropdown-item" onclick="selectPreset('clean')">L1: Semantic Cache &amp; Cascade</a>
+            <a class="dropdown-item" onclick="selectPreset('rag')">L2: NLI Grounding Gate</a>
+            <a class="dropdown-item" onclick="openArchModal()">L3: Agent Tool Intent Contracts</a>
+            <a class="dropdown-item" href="/audit.html">L4: Hash-Chained Audit Ledger</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Governance Tools <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" onclick="scrollToSection('playground')">Live Request Playground</a>
+            <a class="dropdown-item" href="/audit.html">Cryptographic Audit Explorer</a>
+            <a class="dropdown-item" href="/calibration.html">Grounding Calibration</a>
+            <a class="dropdown-item" href="/bandit.html">Bandit Cost Model</a>
+            <a class="dropdown-item" href="/scale.html">Production Scale Roadmap</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/how-it-works.html">How It Works</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#benchmarks" onclick="scrollToSection('benchmarks')">Benchmarks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Resources <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/docs" target="_blank">FastAPI OpenAPI Swagger ↗</a>
+            <a class="dropdown-item" href="https://github.com/antrikshagalaxy/controlplane" target="_blank">GitHub Repository ↗</a>
+            <a class="dropdown-item" onclick="openArchModal()">Architecture Specification</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="status-pill">
+        <span class="status-dot"></span> Gateway Active (8080)
+      </div>
+      <button class="btn-nav-action" onclick="scrollToSection('playground')">Test Gateway ⚡</button>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+
+    <!-- HERO HEADER -->
+    <header class="hero-header">
+      <div>
+        <h1 class="page-title">
+          ControlPlane AI Risk Middleware<span class="cursor-blink"></span>
+        </h1>
+        <p class="hero-subtitle">
+          Deadline-tiered security, compliance, and cost governance for Generative AI — classifies every check by <em>when the decision is needed</em>: <strong>Block-Before-Send</strong>, <strong>Decide-Before-Inference</strong>, or <strong>Verify-After-Delivery</strong>.
+        </p>
+      </div>
+      <button class="btn-outline-pill" onclick="openArchModal()">View Architecture Flow</button>
+    </header>
+
+    <!-- LIVE KPI METRICS BANNER -->
+    <div class="kpi-grid" id="benchmarks">
+      <div class="kpi-card">
+        <div class="kpi-label">Semantic Cache Hit Rate</div>
+        <div class="kpi-value">57.5%</div>
+        <div class="kpi-sub">Cuts LLM calls by &gt; half</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Cache Hit Latency</div>
+        <div class="kpi-value">11.4 ms</div>
+        <div class="kpi-sub">~400x faster than LLM</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Inference Cost Reduction</div>
+        <div class="kpi-value">92.7%</div>
+        <div class="kpi-sub">FAISS + Frugal Cascade</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Adversarial Intercept Rate</div>
+        <div class="kpi-value">100%</div>
+        <div class="kpi-sub">20/20 injections blocked</div>
+      </div>
+    </div>
+
+    <!-- PROFILE SELECTOR PILL -->
+    <div class="profile-switch-wrapper">
+      <div class="profile-switch">
+        <button class="profile-btn active" id="prof-customer" onclick="switchProfile('customer_bot')">
+          <span>🤖</span> customer_bot (Latency &lt; 100ms)
+        </button>
+        <button class="profile-btn" id="prof-rag" onclick="switchProfile('internal_rag')">
+          <span>📖</span> internal_rag (NLI Grounding)
+        </button>
+        <button class="profile-btn" id="prof-agent" onclick="switchProfile('decision_agent')">
+          <span>⚙️</span> decision_agent (Strict Contracts)
+        </button>
+      </div>
+    </div>
+
+    <!-- INTERACTIVE LIVE PLAYGROUND -->
+    <section class="playground-section" id="playground">
+      <div class="pg-header">
+        <div class="pg-title">
+          <span>🧪</span> Live ControlPlane Gateway Playground
+        </div>
+        <span class="version-tag" id="current-profile-tag">Profile: customer_bot</span>
+      </div>
+
+      <div class="preset-pills">
+        <button class="preset-pill active" data-preset="pii" onclick="selectPreset('pii', this)">🔒 PII Leak Preset</button>
+        <button class="preset-pill" data-preset="injection" onclick="selectPreset('injection', this)">🛑 Injection Attack Preset</button>
+        <button class="preset-pill" data-preset="clean" onclick="selectPreset('clean', this)">⚡ Cache &amp; Cascade Preset</button>
+        <button class="preset-pill" data-preset="rag" onclick="selectPreset('rag', this)">📖 RAG Hallucination Preset</button>
+      </div>
+
+      <label class="input-label">User Query / Prompt</label>
+      <input type="text" id="gw-prompt-input" class="pg-input" value="My card number is 4111111111111111 and SSN is 123-45-6789, please process refund" onkeydown="if(event.key==='Enter') fireGatewayQuery()">
+
+      <div id="rag-context-group" style="display: none; margin-bottom: 14px;">
+        <label class="input-label">RAG Source Context Chunks (For Grounding Verification)</label>
+        <input type="text" id="gw-context-input" class="pg-input" value="The company was founded in 2019 by Priya Sharma in Bangalore." onkeydown="if(event.key==='Enter') fireGatewayQuery()">
+      </div>
+
+
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <button class="btn-fire" onclick="fireGatewayQuery()">
+          <span>⚡</span> Send to ControlPlane Gateway
+        </button>
+        <span class="live-spinner" id="gw-spinner">Processing through deadline tiers...</span>
+      </div>
+
+      <!-- RESULTS PANEL -->
+      <div class="result-container" id="gw-result">
+        <div class="verdict-row">
+          <div class="verdict-badge" id="gw-verdict-badge"></div>
+          <div class="latency-summary" id="gw-latency-summary"></div>
+        </div>
+
+        <label class="input-label">Model / Gateway Response</label>
+        <div class="response-text-box" id="gw-response-text"></div>
+
+        <!-- WATERFALL BAR GRAPH -->
+        <div class="waterfall-card">
+          <div class="waterfall-title">Stage-Level Latency Waterfall (ms)</div>
+          
+          <div class="stage-bar-row">
+            <div class="stage-name">L0: PII Scan</div>
+            <div class="stage-bar-bg"><div class="stage-bar-fill" id="bar-pii" style="width: 5%;"></div></div>
+            <div class="stage-ms" id="ms-pii">0.05 ms</div>
+          </div>
+
+          <div class="stage-bar-row">
+            <div class="stage-name">L0: Injection Guard</div>
+            <div class="stage-bar-bg"><div class="stage-bar-fill" id="bar-inj" style="width: 5%; background: #EF4444;"></div></div>
+            <div class="stage-ms" id="ms-inj">0.01 ms</div>
+          </div>
+
+          <div class="stage-bar-row">
+            <div class="stage-name">L1: Cache Lookup</div>
+            <div class="stage-bar-bg"><div class="stage-bar-fill" id="bar-cache" style="width: 8%; background: #10B981;"></div></div>
+            <div class="stage-ms" id="ms-cache">0.02 ms</div>
+          </div>
+
+          <div class="stage-bar-row">
+            <div class="stage-name">L1: Model Cascade</div>
+            <div class="stage-bar-bg"><div class="stage-bar-fill" id="bar-cascade" style="width: 60%; background: #8B5CF6;"></div></div>
+            <div class="stage-ms" id="ms-cascade">-- ms</div>
+          </div>
+        </div>
+
+        <label class="input-label">Telemetry &amp; Cryptographic Audit Headers</label>
+        <pre class="headers-box" id="gw-headers-box"></pre>
+      </div>
+    </section>
+
+    <!-- SECTION 2: GOVERNANCE OPERATIONS DASHBOARDS -->
+    <section class="section">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+        <span style="font-size: 24px;">🧭</span>
+        <h2 class="section-title" style="margin: 0;">Governance Operations Dashboards</h2>
+      </div>
+      <p class="section-desc">
+        Access deep telemetry, cryptographic ledger validation, and grounding calibration.
+      </p>
+
+      <div class="grid-tools">
+        <a class="tool-card" href="/audit.html">
+          <div>
+            <div class="tool-title"><span>📜</span> Audit Explorer</div>
+            <div class="tool-desc">Inspect and cryptographically verify the SHA-256 SQLite tamper-evident hash chain.</div>
+          </div>
+          <div class="tool-action-btn">Verify Audit Ledger →</div>
+        </a>
+
+        <a class="tool-card" href="/calibration.html">
+          <div>
+            <div class="tool-title"><span>🎯</span> Grounding Calibration</div>
+            <div class="tool-desc">Conformal prediction curves with guaranteed empirical false negative rates (FNR).</div>
+          </div>
+          <div class="tool-action-btn">View Conformal Curves →</div>
+        </a>
+
+        <a class="tool-card" href="/bandit.html">
+          <div>
+            <div class="tool-title"><span>🎰</span> Bandit Optimization</div>
+            <div class="tool-desc">Offline Thompson-sampling replay curves and convergence metrics across candidate cache thresholds.</div>
+          </div>
+          <div class="tool-action-btn">View Bandit Regret →</div>
+        </a>
+
+        <a class="tool-card" href="/scale.html">
+          <div>
+            <div class="tool-title"><span>🚀</span> Production Scale Roadmap</div>
+            <div class="tool-desc">Production migration architecture: Rust/Axum engine, Qdrant cluster &amp; S3 WORM Lock.</div>
+          </div>
+          <div class="tool-action-btn">View Scale Blueprint →</div>
+        </a>
+
+        <a class="tool-card" href="/how-it-works.html">
+          <div>
+            <div class="tool-title"><span>🔍</span> How It Works</div>
+            <div class="tool-desc">Live animated packet walkthrough through the L0–L4 deadline-tiered stages.</div>
+          </div>
+          <div class="tool-action-btn">View Interactive Flow →</div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast-msg">
+    <span>✓</span> <span id="toast-text">Notification</span>
+  </div>
+
+  <!-- ARCHITECTURE MODAL -->
+  <div class="modal-overlay" id="arch-modal" onclick="closeArchModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 class="modal-title">ControlPlane Execution Lifecycle</h3>
+        <button class="modal-close" onclick="closeArchModal()">✕</button>
+      </div>
+      <div>
+        <div class="flow-step">
+          <div class="flow-step-title">Stage 1: Block-Before-Send (&lt;15ms)</div>
+          <div class="flow-step-desc">Synchronous PII redaction (SSN, credit card Luhn check) and prompt injection regex filter. Violations trigger immediate edge BLOCK.</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-title">Stage 2: Decide-Before-Inference (&lt;25ms)</div>
+          <div class="flow-step-desc">Compound SHA-256 semantic cache lookup (11.4ms). On MISS, cascades from Tier 0 (gpt-oss-20b) to Tier 1 on refusal.</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-title">Stage 3: Verify-In-Stream / After-Delivery (Async)</div>
+          <div class="flow-step-desc">Sentence-level ONNX NLI grounding verification against RAG context chunks. Validates tool intent contracts for agents.</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-title">Stage 4: Continuous Governance</div>
+          <div class="flow-step-desc">Appends SHA256(prev_hash + payload) to tamper-evident audit ledger and updates Thompson-sampling bandit cache thresholds.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="/app.js"></script>
+</body>
+</html>

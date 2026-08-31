@@ -6,3 +6,8 @@ groq
 numpy
 requests
 python-dotenv
+httpx
+pytest
+streamlit
+pandas
+

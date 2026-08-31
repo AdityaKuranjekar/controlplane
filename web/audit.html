@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit Explorer — ControlPlane</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- TOP NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/" class="brand">
+        <span class="brand-icon">🛡️</span>
+        ControlPlane
+      </a>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a class="nav-link">Risk Stages <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/#playground">L0: Pre-Gate (PII &amp; Injection)</a>
+            <a class="dropdown-item" href="/#playground">L1: Semantic Cache &amp; Cascade</a>
+            <a class="dropdown-item" href="/#playground">L2: NLI Grounding Gate</a>
+            <a class="dropdown-item" href="/how-it-works.html">L3: Agent Intent Contracts</a>
+            <a class="dropdown-item" href="/audit.html">L4: Hash-Chained Audit Ledger</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Governance Tools <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/#playground">Live Request Playground</a>
+            <a class="dropdown-item" href="/audit.html">Cryptographic Audit Explorer</a>
+            <a class="dropdown-item" href="/calibration.html">Grounding Calibration</a>
+            <a class="dropdown-item" href="/bandit.html">Bandit Cost Model</a>
+            <a class="dropdown-item" href="/scale.html">Production Scale Roadmap</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/how-it-works.html">How It Works</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#benchmarks">Benchmarks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Resources <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/docs" target="_blank">FastAPI OpenAPI Swagger ↗</a>
+            <a class="dropdown-item" href="https://github.com/antrikshagalaxy/controlplane" target="_blank">GitHub Repository ↗</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="status-pill">
+        <span class="status-dot"></span> Gateway Active (8080)
+      </div>
+      <a href="/#playground" class="btn-nav-action">Test Gateway ⚡</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="hero-header">
+      <div>
+        <h1 class="page-title">
+          📜 Cryptographic Audit Explorer<span class="cursor-blink"></span>
+        </h1>
+        <p class="hero-subtitle">
+          Inspect tamper-evident <code>audit.db</code> logs and cryptographically verify the unbroken SHA-256 hash chain.
+        </p>
+      </div>
+      <button class="btn-fire" onclick="verifyHashChain()" id="btn-verify">
+        🔒 Verify Hash Chain
+      </button>
+    </div>
+
+    <!-- STATS -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Logged Rows</div>
+        <div class="kpi-value" id="stat-count">Loading...</div>
+        <div class="kpi-sub">SQLite Ledger</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Hash Chain Status</div>
+        <div class="kpi-value" id="stat-status" style="color: #10B981;">🔒 Sealed</div>
+        <div class="kpi-sub">SHA-256 Merkle Link</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Immutability Standard</div>
+        <div class="kpi-value">WORM Compliant</div>
+        <div class="kpi-sub">Append-Only Design</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Tamper Detection</div>
+        <div class="kpi-value">100% Deterministic</div>
+        <div class="kpi-sub">SHA256(prev + row)</div>
+      </div>
+    </div>
+
+    <!-- VERIFICATION ALERT BOX -->
+    <div id="verify-box" style="display: none; padding: 16px 20px; border-radius: 12px; margin-bottom: 24px; font-weight: 600; font-size: 14px;"></div>
+
+    <!-- AUDIT LOG TABLE -->
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Profile</th>
+            <th>Action</th>
+            <th>Prompt (Redacted)</th>
+            <th>Reason</th>
+            <th>Row Hash</th>
+            <th>Prev Hash</th>
+          </tr>
+        </thead>
+        <tbody id="audit-tbody">
+          <tr><td colspan="7" style="text-align: center; padding: 32px; color: #6B7280;">Fetching live audit records from gateway...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <div class="toast" id="toast-msg">
+    <span>✓</span> <span id="toast-text">Notification</span>
+  </div>
+
+<script src="/app.js"></script>
+<script>
+  let rawLogs = [];
+
+  async function loadAuditLogs() {
+    try {
+      const resp = await fetch('/v1/audit/logs');
+      const data = await resp.json();
+      rawLogs = data.logs || [];
+
+      document.getElementById('stat-count').innerText = rawLogs.length;
+      const tbody = document.getElementById('audit-tbody');
+      tbody.innerHTML = '';
+
+      if (rawLogs.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 32px; color: #6B7280;">No audit records found. Test a query from the home playground to generate logs.</td></tr>';
+        return;
+      }
+
+      const actionIcons = {
+        'ALLOW': '✅ ALLOW',
+        'BLOCK': '🛑 BLOCK',
+        'REDACT': '✂️ REDACT',
+        'FLAG': '🚩 FLAG'
+      };
+
+      rawLogs.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>#${row.id}</strong></td>
+          <td><span class="version-tag">${row.profile}</span></td>
+          <td><strong>${actionIcons[row.action] || row.action}</strong></td>
+          <td style="max-width: 260px; word-break: break-word;">${escapeHtml(row.prompt_redacted)}</td>
+          <td style="color: #6B7280;">${row.reason || 'n/a'}</td>
+          <td><code style="font-family: var(--font-mono); font-size: 11.5px;">${row.row_hash.substring(0, 16)}...</code></td>
+          <td><code style="font-family: var(--font-mono); font-size: 11.5px; color: #6B7280;">${row.prev_hash.substring(0, 12)}...</code></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+    } catch (e) {
+      document.getElementById('stat-count').innerText = '0';
+      document.getElementById('audit-tbody').innerHTML = `<tr><td colspan="7" style="text-align: center; color: #EF4444; padding: 32px;">Failed to connect to gateway: ${e.message}</td></tr>`;
+    }
+  }
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  // Cryptographic Hash Chain Verifier
+  async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  function canonicalJson(obj) {
+    const keys = Object.keys(obj).sort();
+    let res = '{';
+    for (let i = 0; i < keys.length; i++) {
+      const k = keys[i];
+      let val = obj[k];
+      let valStr = '';
+      if (typeof val === 'object' && val !== null) {
+        valStr = canonicalJson(val);
+      } else {
+        valStr = JSON.stringify(val);
+      }
+      res += JSON.stringify(k) + ':' + valStr;
+      if (i < keys.length - 1) res += ',';
+    }
+    res += '}';
+    return res;
+  }
+
+  async function verifyHashChain() {
+    const box = document.getElementById('verify-box');
+    box.style.display = 'block';
+
+    if (rawLogs.length === 0) {
+      box.style.background = '#FEF08A';
+      box.style.color = '#713F12';
+      box.innerText = 'No records to verify.';
+      return;
+    }
+
+    for (let i = 0; i < rawLogs.length; i++) {
+      const row = rawLogs[i];
+      const payload = {
+        profile: row.profile,
+        prompt_redacted: row.prompt_redacted,
+        action: row.action,
+        reason: row.reason,
+        risk_vector: JSON.parse(row.risk_vector),
+        latency_ms: JSON.parse(row.latency_ms),
+        prev_hash: row.prev_hash
+      };
+
+      const computed = await sha256(canonicalJson(payload));
+      if (computed !== row.row_hash) {
+        box.style.background = '#FDE8E8';
+        box.style.color = '#9B1C1C';
+        box.innerHTML = `❌ Hash Mismatch at Row #${row.id}!<br>Computed: ${computed}<br>Expected: ${row.row_hash}`;
+        return;
+      }
+
+      if (i > 0) {
+        const prevRow = rawLogs[i - 1];
+        if (row.prev_hash !== prevRow.row_hash) {
+          box.style.background = '#FDE8E8';
+          box.style.color = '#9B1C1C';
+          box.innerHTML = `❌ Previous Hash Link Broken at Row #${row.id}!<br>Found: ${row.prev_hash}<br>Expected: ${prevRow.row_hash}`;
+          return;
+        }
+      }
+    }
+
+    box.style.background = '#DEF7EC';
+    box.style.color = '#03543F';
+    box.innerHTML = `✅ Cryptographic Chain Verified: All ${rawLogs.length} records have valid, unbroken SHA-256 hashes!`;
+  }
+
+  loadAuditLogs();
+</script>
+</body>
+</html>

@@ -1,25 +1,25 @@
 [
   {
     "target_fnr": 0.1,
-    "achieved_fnr": 0.0875,
-    "achieved_fpr": 0.75,
-    "threshold": 0.19224396347999573,
+    "achieved_fnr": 0.0,
+    "achieved_fpr": 1.0,
+    "threshold": 0.0,
     "n_calibration": 240,
     "n_test": 160
   },
   {
     "target_fnr": 0.2,
-    "achieved_fnr": 0.2,
-    "achieved_fpr": 0.6,
-    "threshold": 0.4861520826816559,
+    "achieved_fnr": 0.0,
+    "achieved_fpr": 1.0,
+    "threshold": 0.0,
     "n_calibration": 240,
     "n_test": 160
   },
   {
     "target_fnr": 0.3,
-    "achieved_fnr": 0.2875,
-    "achieved_fpr": 0.4875,
-    "threshold": 0.7446497082710266,
+    "achieved_fnr": 0.325,
+    "achieved_fpr": 0.0875,
+    "threshold": 0.05,
     "n_calibration": 240,
     "n_test": 160
   }

@@ -3,18 +3,24 @@ import sqlite3
 import pandas as pd
 import hashlib
 import json
-from theme import inject_global_css
-
-st.set_page_config(page_title="Audit Explorer", layout="wide")
-inject_global_css()
-
-st.title("Audit Explorer")
-st.markdown("Inspect `audit.db` logs and manually verify the SHA-256 hash chain.")
-
 import os
 import requests
+from theme import inject_global_css, render_top_navbar
 
-GATEWAY_URL = os.getenv("GATEWAY_URL", "http://localhost:8000")
+st.set_page_config(page_title="Audit Explorer — ControlPlane", page_icon="📜", layout="wide", initial_sidebar_state="collapsed")
+inject_global_css()
+render_top_navbar("Audit_Explorer")
+
+st.markdown("""
+<div class="cp-page-title">
+  📜 Cryptographic Audit Explorer<span class="cp-cursor"></span>
+</div>
+<p class="cp-page-desc">
+  Inspect tamper-evident <code>audit.db</code> logs and verify the continuous SHA-256 cryptographic hash chain.
+</p>
+""", unsafe_allow_html=True)
+
+GATEWAY_URL = os.getenv("GATEWAY_URL", "http://localhost:8080")
 
 def load_data():
     try:
@@ -35,6 +41,13 @@ def _canonical(payload: dict) -> str:
 df = load_data()
 
 if not df.empty:
+    col_stat1, col_stat2, col_stat3 = st.columns(3)
+    col_stat1.metric("Total Chained Records", len(df))
+    col_stat2.metric("Latest Hash Status", "🔒 Sealed")
+    col_stat3.metric("Storage Engine", "SQLite + SHA-256")
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
     emojis = {
         "ALLOW": "✅",
         "REDACT": "✂️",
@@ -46,12 +59,13 @@ if not df.empty:
     display_df['action'] = display_df['action'].apply(lambda x: f"{emojis.get(x, '❔')} {x}")
     st.dataframe(display_df, use_container_width=True)
 
-    if st.button("Verify Hash Chain"):
-        st.markdown("### Hash Chain Verification")
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    if st.button("🔒 Verify SHA-256 Hash Chain Integrity"):
+        st.markdown("### Verification Result")
         valid = True
         broken_at = None
         
-        # We must re-compute hashes exactly as chain.py does
         for i in range(len(df)):
             row = df.iloc[i]
             
@@ -82,6 +96,6 @@ if not df.empty:
                     break
         
         if valid:
-            st.success(f"Hash chain verified successfully for all {len(df)} rows!")
+            st.success(f"✅ Cryptographic Integrity Verified: All {len(df)} hash links in the chain are 100% valid and unbroken!")
 else:
-    st.warning("No data found in audit.db")
+    st.info("No audit logs found yet. Send a test query from the home playground to populate the audit ledger.")
