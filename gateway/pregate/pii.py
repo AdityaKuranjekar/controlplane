@@ -1,16 +1,17 @@
 import re
 
 PATTERNS = {
-    "EMAIL":    re.compile(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"),
-    "PHONE_IN": re.compile(r"(?<!\d)(?:\+91[\-\s]?)?[6-9]\d{9}(?!\d)"),
-    "CREDIT_CARD": re.compile(r"(?<!\d)(?:\d[ -]*?){13,16}(?!\d)"),
-    "AADHAAR":  re.compile(r"(?<!\d)\d{4}\s?\d{4}\s?\d{4}(?!\d)"),
-    "PAN_IN":   re.compile(r"[A-Z]{5}\d{4}[A-Z]"),
+    "SSN":         re.compile(r"\b\d{3}[-\s]?\d{2}[-\s]?\d{4}\b"),
+    "CREDIT_CARD": re.compile(r"\b(?:\d{4}[-\s]?){3}\d{4}\b|\b(?:\d[ -]*?){13,19}\b"),
+    "EMAIL":       re.compile(r"\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,7}\b"),
+    "PHONE":       re.compile(r"\b(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b|\b(?:\+91[\-\s]?)?[6-9]\d{9}\b"),
+    "AADHAAR":     re.compile(r"\b\d{4}\s?\d{4}\s?\d{4}\b"),
+    "PAN_IN":      re.compile(r"\b[A-Z]{5}\d{4}[A-Z]\b"),
 }
 
 def luhn_valid(card_str: str) -> bool:
     digits = [int(d) for d in re.sub(r"\D", "", card_str)]
-    if not (13 <= len(digits) <= 16):
+    if not (13 <= len(digits) <= 19):
         return False
     checksum = 0
     for i, d in enumerate(reversed(digits)):
@@ -29,11 +30,15 @@ def detect_and_tokenize(text: str) -> tuple[str, dict]:
     for label, pattern in PATTERNS.items():
         matches = list(pattern.finditer(redacted))
         for m in matches:
-            if label == "CREDIT_CARD" and not luhn_valid(m.group()):
-                continue  # avoid false-positives on random 16-digit numbers
+            matched_str = m.group()
+            if label == "CREDIT_CARD":
+                raw_digits = re.sub(r"\D", "", matched_str)
+                if len(raw_digits) not in [13, 15, 16] and not luhn_valid(matched_str):
+                    continue
             counters[label] = counters.get(label, 0) + 1
             token = f"[PII:{label}_{counters[label]}]"
-            redacted = redacted.replace(m.group(), token, 1)
+            redacted = redacted.replace(matched_str, token, 1)
             findings[label] = findings.get(label, 0) + 1
 
     return redacted, findings
+

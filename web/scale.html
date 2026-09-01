@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Production Scale Roadmap — ControlPlane</title>
+<link rel="stylesheet" href="/styles.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --bg-primary: #FFFFFF;
+  --bg-subtle: #F9FAFB;
+  --bg-dark: #111827;
+  --border-light: #E5E7EB;
+  --border-hover: #CBD5E1;
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --text-muted: #6B7280;
+  --accent-blue: #2563EB;
+  --accent-green: #10B981;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-sans); }
+html, body { background-color: var(--bg-primary); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; }
+
+.navbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; border-bottom: 1px solid var(--border-light); background: var(--bg-primary); position: sticky; top: 0; z-index: 100; }
+.nav-left { display: flex; align-items: center; gap: 36px; }
+.brand { display: flex; align-items: center; gap: 8px; font-size: 19px; font-weight: 700; color: var(--text-primary); text-decoration: none; cursor: pointer; }
+.brand-icon { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: var(--bg-dark); color: #FFFFFF; border-radius: 6px; font-size: 14px; }
+.nav-menu { display: flex; align-items: center; gap: 26px; list-style: none; }
+.nav-item { position: relative; }
+.nav-link { color: var(--text-secondary); font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 4px; padding: 8px 0; cursor: pointer; }
+.nav-link:hover, .nav-link.active { color: var(--text-primary); font-weight: 600; }
+.chevron { font-size: 10px; color: var(--text-muted); }
+.nav-item:hover .chevron { transform: rotate(180deg); }
+.dropdown-menu { display: none; position: absolute; top: 100%; left: -10px; background: var(--bg-primary); border: 1px solid var(--border-light); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08); border-radius: 12px; padding: 8px; min-width: 250px; z-index: 200; }
+.nav-item:hover .dropdown-menu { display: block; }
+.dropdown-item { display: block; padding: 9px 14px; color: var(--text-secondary); text-decoration: none; font-size: 13.5px; font-weight: 500; border-radius: 8px; cursor: pointer; }
+.dropdown-item:hover { background: #F3F4F6; color: var(--text-primary); }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: #ECFDF5; color: #065F46; border-radius: 9999px; font-size: 12px; font-weight: 600; border: 1px solid #A7F3D0; }
+.status-dot { width: 7px; height: 7px; background-color: var(--accent-green); border-radius: 50%; }
+.btn-nav-action { background: var(--bg-dark); color: #FFFFFF; padding: 8px 18px; border-radius: 9999px; font-size: 13.5px; font-weight: 600; text-decoration: none; cursor: pointer; }
+.container { max-width: 1080px; margin: 0 auto; padding: 40px 24px 80px 24px; }
+.hero-header { margin-bottom: 24px; }
+.page-title { font-size: 42px; font-weight: 800; color: var(--text-primary); margin-bottom: 10px; }
+.hero-subtitle { font-size: 16px; color: var(--text-secondary); line-height: 1.6; max-width: 680px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 28px 0 36px 0; }
+.kpi-card { border: 1px solid var(--border-light); border-radius: 12px; padding: 16px 18px; background: #FAFAFA; }
+.kpi-label { font-size: 12.5px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
+.kpi-value { font-size: 24px; font-weight: 800; color: var(--text-primary); }
+.kpi-sub { font-size: 11.5px; color: var(--accent-green); font-weight: 600; margin-top: 2px; }
+.section-title { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+  <!-- TOP NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/" class="brand">
+        <span class="brand-icon">🛡️</span>
+        ControlPlane
+      </a>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a class="nav-link">Risk Stages <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/#playground">L0: Pre-Gate (PII &amp; Injection)</a>
+            <a class="dropdown-item" href="/#playground">L1: Semantic Cache &amp; Cascade</a>
+            <a class="dropdown-item" href="/#playground">L2: NLI Grounding Gate</a>
+            <a class="dropdown-item" href="/how-it-works.html">L3: Agent Intent Contracts</a>
+            <a class="dropdown-item" href="/audit.html">L4: Hash-Chained Audit Ledger</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Governance Tools <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/#playground">Live Request Playground</a>
+            <a class="dropdown-item" href="/audit.html">Cryptographic Audit Explorer</a>
+            <a class="dropdown-item" href="/calibration.html">Grounding Calibration</a>
+            <a class="dropdown-item" href="/bandit.html">Bandit Cost Model</a>
+            <a class="dropdown-item" href="/scale.html">Production Scale Roadmap</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/how-it-works.html">How It Works</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#benchmarks">Benchmarks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Resources <span class="chevron">⌵</span></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/docs" target="_blank">FastAPI OpenAPI Swagger ↗</a>
+            <a class="dropdown-item" href="https://github.com/antrikshagalaxy/controlplane" target="_blank">GitHub Repository ↗</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="status-pill">
+        <span class="status-dot"></span> Gateway Active (8080)
+      </div>
+      <a href="/#playground" class="btn-nav-action">Test Gateway ⚡</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="hero-header">
+      <div>
+        <h1 class="page-title">
+          🚀 From Prototype to Enterprise Production Scale
+        </h1>
+        <p class="hero-subtitle">
+          Systems engineering migration blueprint: scaling from a deadline-tiered Python prototype to high-throughput, horizontally partitioned cloud infrastructure.
+        </p>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Weekly Ingestion Volume</div>
+        <div class="kpi-value">~50,000 req/wk</div>
+        <div class="kpi-sub">Standard Enterprise Load</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Average Ingestion Rate</div>
+        <div class="kpi-value">~0.08 req/s</div>
+        <div class="kpi-sub">Steady State</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Peak Burst Throughput</div>
+        <div class="kpi-value">~0.8 req/s (10x)</div>
+        <div class="kpi-sub">Handled via Pools</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Availability SLO</div>
+        <div class="kpi-value">99.99%</div>
+        <div class="kpi-sub">Stateless Gateway Pods</div>
+      </div>
+    </div>
+
+    <h2 class="section-title" style="margin-top: 32px;">Architecture Migration Matrix: Prototype vs Production</h2>
+    
+    <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 16px;">
+      <div class="kpi-card" style="padding: 20px;">
+        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Gateway Ingestion Layer</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13.5px;">
+          <div style="color: #6B7280;"><strong>🔧 Prototype:</strong> Single FastAPI process, in-process asyncio</div>
+          <div style="color: #111827;"><strong>🏭 Production:</strong> Horizontally scaled Rust / Axum pods behind Envoy / K8s HPA with connection pooling</div>
+        </div>
+      </div>
+
+      <div class="kpi-card" style="padding: 20px;">
+        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Semantic Cache Cluster</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13.5px;">
+          <div style="color: #6B7280;"><strong>🔧 Prototype:</strong> In-process FAISS flat index</div>
+          <div style="color: #111827;"><strong>🏭 Production:</strong> Distributed Qdrant / Pinecone cluster shared across all edge pods with sub-millisecond gRPC routing</div>
+        </div>
+      </div>
+
+      <div class="kpi-card" style="padding: 20px;">
+        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Model Cascade Queue</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13.5px;">
+          <div style="color: #6B7280;"><strong>🔧 Prototype:</strong> Direct synchronous Groq client per request</div>
+          <div style="color: #111827;"><strong>🏭 Production:</strong> Async task queue (Redis / Kafka) with circuit breakers and multi-provider failover</div>
+        </div>
+      </div>
+
+      <div class="kpi-card" style="padding: 20px;">
+        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Compliance Audit Log</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13.5px;">
+          <div style="color: #6B7280;"><strong>🔧 Prototype:</strong> SQLite single file with SHA-256 hash chain</div>
+          <div style="color: #111827;"><strong>🏭 Production:</strong> ClickHouse append-only log with AWS S3 WORM / Object Lock compliance immutability</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<script src="/app.js"></script>
+</body>
+</html>
