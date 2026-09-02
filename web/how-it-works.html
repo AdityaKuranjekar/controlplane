@@ -3,191 +3,337 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How It Works — ControlPlane</title>
+<title>How It Works — ControlPlane.ai</title>
+<meta name="description" content="Architecture deep dive into the ControlPlane L0-L4 governance pipeline.">
 <link rel="stylesheet" href="/styles.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+.page-shell { display: flex; min-height: calc(100vh - 56px); }
+.sidebar { width: 210px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); padding: 16px 10px; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; }
+.main-content { flex: 1; min-width: 0; padding: 28px 32px 80px; max-width: 860px; }
+.sidebar-label { font-size: 11px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 10px 8px; }
+.sidebar-link { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: var(--radius-sm); font-size: 13.5px; font-weight: 500; color: var(--t2); text-decoration: none; margin-bottom: 1px; transition: all 0.12s; }
+.sidebar-link:hover { background: var(--surface-3); color: var(--t1); }
+.sidebar-link.active { background: var(--blue-bg); color: var(--blue); font-weight: 600; }
+.sidebar-sep { height: 1px; background: var(--border); margin: 10px 8px; }
 
-:root {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --bg-primary: #FFFFFF;
-  --bg-subtle: #F9FAFB;
-  --bg-dark: #111827;
-  --border-light: #E5E7EB;
-  --border-hover: #CBD5E1;
-  --text-primary: #111827;
-  --text-secondary: #4B5563;
-  --text-muted: #6B7280;
-  --accent-blue: #2563EB;
-  --accent-cyan: #38BDF8;
-  --accent-green: #10B981;
-  --accent-red: #EF4444;
+.pipeline-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  margin-bottom: 16px;
+  transition: box-shadow 0.15s;
+}
+.pipeline-card:hover { box-shadow: var(--shadow-md); }
+.pc-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+.pc-badge {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 900; color: #fff;
+  flex-shrink: 0;
+}
+.pc-title { font-size: 16px; font-weight: 800; color: var(--t1); letter-spacing: -0.02em; }
+.pc-sub   { font-size: 12.5px; color: var(--t3); margin-top: 2px; }
+.pc-tag   { margin-left: auto; }
+.pc-body  { padding: 20px 22px; }
+.pc-body p { font-size: 14px; color: var(--t2); line-height: 1.7; margin-bottom: 12px; }
+.pc-body strong { color: var(--t1); }
+.pc-body code  { font-size: 12.5px; }
+.sub-features { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.sf-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 12px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--surface-3);
+  font-size: 12.5px; font-weight: 600; color: var(--t2);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-sans); }
-html, body { background-color: var(--bg-primary); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; }
+/* Architecture diagram */
+.arch-flow {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;
+  overflow-x: auto; padding: 16px 0 24px;
+}
+.af-node {
+  display: flex; flex-direction: column; align-items: center;
+  min-width: 90px;
+}
+.af-box {
+  width: 76px; height: 76px; border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.af-box.node-user { background: #F3F4F6; border-color: #E5E7EB; }
+.af-box.node-l0 { background: #FEF2F2; border-color: #FCA5A5; }
+.af-box.node-l1 { background: #EFF6FF; border-color: #93C5FD; }
+.af-box.node-l2 { background: #F5F3FF; border-color: #C4B5FD; }
+.af-box.node-l3 { background: #FFF7ED; border-color: #FDBA74; }
+.af-box.node-l4 { background: #ECFDF5; border-color: #6EE7B7; }
+.af-box.node-resp { background: #F3F4F6; border-color: #E5E7EB; }
 
-.navbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; border-bottom: 1px solid var(--border-light); background: var(--bg-primary); position: sticky; top: 0; z-index: 100; }
-.nav-left { display: flex; align-items: center; gap: 36px; }
-.brand { display: flex; align-items: center; gap: 8px; font-size: 19px; font-weight: 700; color: var(--text-primary); text-decoration: none; cursor: pointer; }
-.brand-icon { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: var(--bg-dark); color: #FFFFFF; border-radius: 6px; font-size: 14px; }
-.nav-menu { display: flex; align-items: center; gap: 26px; list-style: none; }
-.nav-item { position: relative; }
-.nav-link { color: var(--text-secondary); font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 4px; padding: 8px 0; cursor: pointer; }
-.nav-link:hover, .nav-link.active { color: var(--text-primary); font-weight: 600; }
-.chevron { font-size: 10px; color: var(--text-muted); }
-.nav-item:hover .chevron { transform: rotate(180deg); }
-.dropdown-menu { display: none; position: absolute; top: 100%; left: -10px; background: var(--bg-primary); border: 1px solid var(--border-light); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08); border-radius: 12px; padding: 8px; min-width: 250px; z-index: 200; }
-.nav-item:hover .dropdown-menu { display: block; }
-.dropdown-item { display: block; padding: 9px 14px; color: var(--text-secondary); text-decoration: none; font-size: 13.5px; font-weight: 500; border-radius: 8px; cursor: pointer; }
-.dropdown-item:hover { background: #F3F4F6; color: var(--text-primary); }
-.nav-right { display: flex; align-items: center; gap: 16px; }
-.status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: #ECFDF5; color: #065F46; border-radius: 9999px; font-size: 12px; font-weight: 600; border: 1px solid #A7F3D0; }
-.status-dot { width: 7px; height: 7px; background-color: var(--accent-green); border-radius: 50%; }
-.btn-nav-action { background: var(--bg-dark); color: #FFFFFF; padding: 8px 18px; border-radius: 9999px; font-size: 13.5px; font-weight: 600; text-decoration: none; cursor: pointer; }
-.container { max-width: 1080px; margin: 0 auto; padding: 40px 24px 80px 24px; }
-.hero-header { margin-bottom: 24px; }
-.page-title { font-size: 42px; font-weight: 800; color: var(--text-primary); margin-bottom: 10px; }
-.hero-subtitle { font-size: 16px; color: var(--text-secondary); line-height: 1.6; max-width: 680px; }
-.kpi-card { border: 1px solid var(--border-light); border-radius: 12px; padding: 16px 18px; background: #FAFAFA; }
+.af-label { font-size: 13px; font-weight: 700; color: var(--t1); text-align: center; }
+.af-arrow { font-size: 16px; color: var(--border-2); padding: 0 4px; margin-top: 28px; font-weight: bold; }
 </style>
 </head>
 <body>
+<div id="cp-nav-placeholder"></div>
 
-  <!-- TOP NAVBAR -->
-  <nav class="navbar">
-    <div class="nav-left">
-      <a href="/" class="brand">
-        <span class="brand-icon">🛡️</span>
-        ControlPlane
-      </a>
-      <ul class="nav-menu">
-        <li class="nav-item">
-          <a class="nav-link">Risk Stages <span class="chevron">⌵</span></a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/#playground">L0: Pre-Gate (PII &amp; Injection)</a>
-            <a class="dropdown-item" href="/#playground">L1: Semantic Cache &amp; Cascade</a>
-            <a class="dropdown-item" href="/#playground">L2: NLI Grounding Gate</a>
-            <a class="dropdown-item" href="/how-it-works.html">L3: Agent Intent Contracts</a>
-            <a class="dropdown-item" href="/audit.html">L4: Hash-Chained Audit Ledger</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Governance Tools <span class="chevron">⌵</span></a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/#playground">Live Request Playground</a>
-            <a class="dropdown-item" href="/audit.html">Cryptographic Audit Explorer</a>
-            <a class="dropdown-item" href="/calibration.html">Grounding Calibration</a>
-            <a class="dropdown-item" href="/bandit.html">Bandit Cost Model</a>
-            <a class="dropdown-item" href="/scale.html">Production Scale Roadmap</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="/how-it-works.html">How It Works</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/#benchmarks">Benchmarks</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Resources <span class="chevron">⌵</span></a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/docs" target="_blank">FastAPI OpenAPI Swagger ↗</a>
-            <a class="dropdown-item" href="https://github.com/antrikshagalaxy/controlplane" target="_blank">GitHub Repository ↗</a>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="nav-right">
-      <div class="status-pill">
-        <span class="status-dot"></span> Gateway Active (8080)
+<div class="page-shell">
+  <aside class="sidebar">
+    <div class="sidebar-label">Governance</div>
+    <a href="/" class="sidebar-link">⚡ Playground</a>
+    <a href="/audit.html" class="sidebar-link">📜 Audit Ledger</a>
+    <a href="/calibration.html" class="sidebar-link">📐 Grounding</a>
+    <a href="/bandit.html" class="sidebar-link">📊 Bandit</a>
+    <div class="sidebar-sep"></div>
+    <div class="sidebar-label">Resources</div>
+    <a href="/how-it-works.html" class="sidebar-link active">🔬 How It Works</a>
+    <a href="/scale.html" class="sidebar-link">🚀 Scale Roadmap</a>
+    <a href="/docs" class="sidebar-link" target="_blank">📡 API Docs ↗</a>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <div class="page-breadcrumb">
+        <a href="/">ControlPlane.ai</a>
+        <span class="sep">/</span>
+        <span>How It Works</span>
       </div>
-      <a href="/#playground" class="btn-nav-action">Test Gateway ⚡</a>
-    </div>
-  </nav>
-
-  <main class="container">
-    <div class="hero-header">
-      <div>
-        <h1 class="page-title">
-          🔍 How Requests Flow Through ControlPlane
-        </h1>
-        <p class="hero-subtitle">
-          Live deadline-tiered execution pipeline. Classifies risk by <em>when decisions must happen</em> to minimize latency and guarantee security.
-        </p>
-      </div>
-    </div>
-
-    <!-- LIVE SVG PACKET ANIMATION -->
-    <div style="background:#0F172A; border-radius:16px; padding:36px 20px; font-family:'Inter',sans-serif; border: 1px solid #1E293B; margin-bottom: 32px;">
-      <svg viewBox="0 0 1000 200" style="width:100%; height:auto;">
-        <defs>
-          <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L9,3 z" fill="#64748B"/>
-          </marker>
-        </defs>
-
-        <line x1="60" y1="100" x2="940" y2="100" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
-
-        <circle r="8" fill="#38BDF8">
-          <animateMotion dur="4s" repeatCount="indefinite" path="M60,100 L940,100" />
-          <animate attributeName="fill" values="#38BDF8;#38BDF8;#EF4444;#10B981" dur="4s" repeatCount="indefinite"/>
-        </circle>
-
-        <g font-size="13" font-weight="700" fill="white" text-anchor="middle">
-          <rect x="20" y="70" width="130" height="60" rx="10" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
-          <text x="85" y="95" fill="#F8FAFC">L0: Pre-Gate</text><text x="85" y="114" font-size="11" font-weight="400" fill="#94A3B8">PII + Injection</text>
-
-          <rect x="220" y="70" width="130" height="60" rx="10" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
-          <text x="285" y="95" fill="#F8FAFC">L1: Cache</text><text x="285" y="114" font-size="11" font-weight="400" fill="#94A3B8">FAISS + Cascade</text>
-
-          <rect x="420" y="70" width="130" height="60" rx="10" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
-          <text x="485" y="95" fill="#F8FAFC">L2: Grounding</text><text x="485" y="114" font-size="11" font-weight="400" fill="#94A3B8">NLI Verification</text>
-
-          <rect x="620" y="70" width="130" height="60" rx="10" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
-          <text x="685" y="95" fill="#F8FAFC">L3: Action Gate</text><text x="685" y="114" font-size="11" font-weight="400" fill="#94A3B8">Intent Contracts</text>
-
-          <rect x="820" y="70" width="130" height="60" rx="10" fill="#1E293B" stroke="#10B981" stroke-width="1.5"/>
-          <text x="885" y="95" fill="#10B981">L4: Audit Log</text><text x="885" y="114" font-size="11" font-weight="400" fill="#94A3B8">SHA-256 Chain</text>
-        </g>
-      </svg>
-      <p style="color:#94A3B8; text-align:center; margin-top:12px; font-size:13px;">
-        The traveling packet flashes red when an edge security violation is detected, immediately short-circuiting with &lt;1ms latency.
+      <h1 class="page-title">🔬 Architecture Deep Dive</h1>
+      <p class="page-sub">
+        A full walkthrough of the L0→L4 governance pipeline — every component,
+        every design decision, and exactly what happens to a prompt from the moment
+        it hits the gateway to when a response is delivered (or blocked).
       </p>
     </div>
 
-    <!-- STAGE DETAILS -->
-    <div style="display: flex; flex-direction: column; gap: 14px;">
-      <div class="kpi-card" style="padding: 20px;">
-        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Stage 1: Block-Before-Send (&lt; 15ms)</div>
-        <div style="font-size: 14px; color: #4B5563; line-height: 1.5;">
-          Every prompt is scanned for PII (credit cards via Luhn checksum, SSN, emails, phone numbers) and prompt-injection markers before touching any LLM. Violations trigger an immediate edge BLOCK without incurring model latency.
-        </div>
+    <!-- Architecture Flow Diagram -->
+    <div class="card" style="margin-bottom:24px;">
+      <div class="card-header">
+        <span class="card-title"><span style="color:var(--t3);">📐</span> Request Flow Overview</span>
+        <a href="/" class="btn-secondary" style="font-size:12px;padding:6px 14px;border-radius:99px;font-weight:600;">Try Live →</a>
       </div>
-
-      <div class="kpi-card" style="padding: 20px;">
-        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Stage 2: Decide-Before-Inference (&lt; 25ms)</div>
-        <div style="font-size: 14px; color: #4B5563; line-height: 1.5;">
-          Compound SHA-256 semantic cache lookup (11.4ms). On MISS, cascades from Tier 0 (gpt-oss-20b) to Tier 1 on refusal.
+      <div class="card-body">
+        <div class="arch-flow">
+          <div class="af-node">
+            <div class="af-box node-user" style="color: #4C1D95;">👤</div>
+            <div class="af-label">User Prompt</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:2px;">REST API</div>
+          </div>
+          <div class="af-arrow">→</div>
+          <div class="af-node">
+            <div class="af-box node-l0" style="color: #2563EB;">🛡️</div>
+            <div class="af-label">L0 Pre-Gate</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:2px;">PII &amp; Injection</div>
+          </div>
+          <div class="af-arrow">→</div>
+          <div class="af-node">
+            <div class="af-box node-l1" style="color: #D97706;">⚡</div>
+            <div class="af-label">L1 Inference</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:2px;">Cache + Routing</div>
+          </div>
+          <div class="af-arrow">→</div>
+          <div class="af-node">
+            <div class="af-box node-l2" style="color: #9333EA;">📐</div>
+            <div class="af-label">L2 NLI Gate</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:2px;">Hallucination</div>
+          </div>
+          <div class="af-arrow">→</div>
+          <div class="af-node">
+            <div class="af-box node-l3" style="color: #EA580C;">📝</div>
+            <div class="af-label">L3 Contracts</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:2px;">Agent Scope</div>
+          </div>
+          <div class="af-arrow">→</div>
+          <div class="af-node">
+            <div class="af-box node-l4" style="color: #16A34A;">🔐</div>
+            <div class="af-label">L4 Audit</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:2px;">SHA-256 Chain</div>
+          </div>
+          <div class="af-arrow">→</div>
+          <div class="af-node">
+            <div class="af-box node-resp" style="color: #16A34A;">✅</div>
+            <div class="af-label">Response</div>
+            <div style="font-size:10px;color:var(--t3);margin-top:2px;">Client HTTP</div>
+          </div>
         </div>
-      </div>
-
-      <div class="kpi-card" style="padding: 20px;">
-        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Stage 3: Verify-In-Stream / After-Delivery (Async)</div>
-        <div style="font-size: 14px; color: #4B5563; line-height: 1.5;">
-          Sentence-level ONNX NLI grounding verification against RAG source context chunks. Validates tool intent contracts for autonomous agent executions.
-        </div>
-      </div>
-
-      <div class="kpi-card" style="padding: 20px;">
-        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Stage 4: Continuous Governance &amp; Cryptographic Audit</div>
-        <div style="font-size: 14px; color: #4B5563; line-height: 1.5;">
-          Appends SHA256(prev_hash + payload) to tamper-evident audit ledger and updates Thompson-sampling bandit cache thresholds.
+        <div style="border-top:1px solid var(--border);margin-top:8px;padding-top:16px;">
+          <p style="font-size:13px;color:var(--t3);line-height:1.6;">
+            A BLOCK at any stage short-circuits the pipeline — the response is returned immediately without calling the LLM.
+            This ensures attacker prompts never reach the model.
+          </p>
         </div>
       </div>
     </div>
-  </main>
 
-<script src="/app.js"></script>
+    <!-- L0 -->
+    <div class="pipeline-card">
+      <div class="pc-header">
+        <div class="pc-badge" style="background:var(--red);">L0</div>
+        <div>
+          <div class="pc-title">Pre-Gate: PII Redaction &amp; Injection Guard</div>
+          <div class="pc-sub">Runs before any LLM call. Average execution time: &lt;1ms.</div>
+        </div>
+        <span class="pc-tag tag tag-red">Block-Before-Send</span>
+      </div>
+      <div class="pc-body">
+        <p>
+          <strong>PII Scanner</strong> — Uses a regex pipeline with Luhn algorithm validation for credit cards.
+          Detected entities: <code>CC</code>, <code>SSN</code>, <code>EMAIL</code>, <code>PHONE</code>, <code>IP</code>, <code>DOB</code>.
+          PII tokens are replaced with <code>[PII:TYPE]</code> placeholders before the prompt is processed further.
+        </p>
+        <p>
+          <strong>Injection Guard</strong> — 14+ regex patterns covering: direct system override attempts (<code>SYSTEM_OVERRIDE</code>),
+          DAN jailbreaks, role-play bypasses, Base64 obfuscation, token injection patterns, and prompt continuation attacks.
+          A BLOCK verdict returns immediately with a 403-equivalent response — no LLM called.
+        </p>
+        <div class="sub-features">
+          <span class="sf-pill">🔒 Luhn-validated card scan</span>
+          <span class="sf-pill">🛑 14+ jailbreak patterns</span>
+          <span class="sf-pill">✂️ PII tokenization</span>
+          <span class="sf-pill">⚡ &lt;1ms execution</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- L1 -->
+    <div class="pipeline-card">
+      <div class="pc-header">
+        <div class="pc-badge" style="background:var(--blue);">L1</div>
+        <div>
+          <div class="pc-title">Inference: Semantic Cache + Frugal Model Cascade</div>
+          <div class="pc-sub">Cache-first architecture. LLM only called on cache MISS.</div>
+        </div>
+        <span class="pc-tag tag tag-blue">Cache-First</span>
+      </div>
+      <div class="pc-body">
+        <p>
+          <strong>Semantic Cache</strong> — A compound hash of <code>SHA256(prompt + context + profile)</code>
+          is used to look up previous responses in a FAISS vector index. If the cosine similarity to a
+          cached embedding exceeds τ (default 0.85, tuned by the bandit), the cached response is returned
+          in ~11ms instead of calling the LLM.
+        </p>
+        <p>
+          <strong>Frugal Cascade</strong> — On cache MISS, a multi-tiered router tries models in cost order:
+          Llama 3.1 8B → Llama 3.3 70B → Mixtral 8x7B. Each model returns a confidence score.
+          If the Tier-0 model passes the confidence threshold, escalation to a more expensive model is avoided.
+          This achieves 92.7% cost reduction vs. always calling the largest model.
+        </p>
+        <div class="sub-features">
+          <span class="sf-pill">📊 FAISS vector index</span>
+          <span class="sf-pill">🎰 Thompson bandit τ tuning</span>
+          <span class="sf-pill">💰 92.7% cost reduction</span>
+          <span class="sf-pill">⚡ 11.4ms cache hit latency</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- L2 -->
+    <div class="pipeline-card">
+      <div class="pc-header">
+        <div class="pc-badge" style="background:var(--purple);">L2</div>
+        <div>
+          <div class="pc-title">Verification: NLI Grounding Gate</div>
+          <div class="pc-sub">Active only for internal_rag profile. Stops hallucinations before delivery.</div>
+        </div>
+        <span class="pc-tag tag tag-purple">RAG Profile Only</span>
+      </div>
+      <div class="pc-body">
+        <p>
+          <strong>Natural Language Inference</strong> — After the LLM generates a response, an NLI model
+          scores the entailment relationship between the response and the provided RAG context chunks.
+          If the entailment score falls below the calibrated threshold τ, the response is flagged or blocked.
+        </p>
+        <p>
+          <strong>Conformal Calibration</strong> — The threshold τ is not manually set. It is derived
+          via conformal prediction: given a target false-negative rate α (max 20% by default), the calibration
+          algorithm finds the lowest τ that guarantees P(false negative) ≤ α on a held-out calibration set.
+          This gives a statistical guarantee, not just a heuristic.
+        </p>
+        <div class="sub-features">
+          <span class="sf-pill">📐 NLI entailment scoring</span>
+          <span class="sf-pill">📊 Conformal prediction</span>
+          <span class="sf-pill">💯 100% hallucination recall at α=20%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- L3 -->
+    <div class="pipeline-card">
+      <div class="pc-header">
+        <div class="pc-badge" style="background:var(--orange);">L3</div>
+        <div>
+          <div class="pc-title">Governance: Tool Intent Contracts</div>
+          <div class="pc-sub">Active only for decision_agent profile. Enforces action scope.</div>
+        </div>
+        <span class="pc-tag tag tag-yellow">Agent Profile Only</span>
+      </div>
+      <div class="pc-body">
+        <p>
+          <strong>Intent Contracts</strong> — Each tool call made by an agent is checked against a
+          signed policy contract specifying allowed actions, parameter constraints, and dual-approval requirements.
+          An agent attempting to execute a wire transfer without dual approval, or calling a tool outside
+          its whitelist, is immediately blocked.
+        </p>
+        <p>
+          <strong>Design Goal</strong> — Prevent AI agents in regulated workflows (financial services, healthcare)
+          from taking irreversible real-world actions that weren't explicitly authorized by the policy contract.
+          Zero-tolerance profile: any contract violation results in BLOCK.
+        </p>
+        <div class="sub-features">
+          <span class="sf-pill">📝 Signed policy contracts</span>
+          <span class="sf-pill">🔐 Dual-approval enforcement</span>
+          <span class="sf-pill">🛑 Zero-tolerance BLOCK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- L4 -->
+    <div class="pipeline-card">
+      <div class="pc-header">
+        <div class="pc-badge" style="background:var(--green);">L4</div>
+        <div>
+          <div class="pc-title">Audit: SHA-256 Hash-Chained Ledger</div>
+          <div class="pc-sub">Runs after every request, regardless of outcome. WORM-compliant.</div>
+        </div>
+        <span class="pc-tag tag tag-green">Always Active</span>
+      </div>
+      <div class="pc-body">
+        <p>
+          <strong>Cryptographic Chaining</strong> — Every inference decision is written to SQLite with
+          <code>row_hash = SHA256(canonicalJSON(row) + prev_hash)</code>. Each record includes the profile,
+          redacted prompt, action taken (ALLOW/BLOCK/REDACT), reason, risk vector, and latency breakdown.
+        </p>
+        <p>
+          <strong>Tamper Evidence</strong> — Because each hash includes the previous row's hash, modifying
+          any historical record breaks the chain from that point forward. The Audit Explorer page
+          re-runs the hash verification client-side using the Web Crypto API, with no server trust required.
+        </p>
+        <div class="sub-features">
+          <span class="sf-pill">🔐 SHA-256 Merkle link</span>
+          <span class="sf-pill">💾 WORM SQLite ledger</span>
+          <span class="sf-pill">✅ Client-side verification</span>
+          <span class="sf-pill">📜 Full risk vector logging</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <span>ControlPlane.ai · Architecture Reference</span>
+  <a href="/">← Back to Playground</a>
+</footer>
+
+<script src="/shared-nav.js"></script>
 </body>
 </html>

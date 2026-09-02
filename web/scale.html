@@ -3,185 +3,299 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Production Scale Roadmap — ControlPlane</title>
+<title>Production Scale Roadmap — ControlPlane.ai</title>
+<meta name="description" content="Roadmap for scaling ControlPlane from prototype to 100K RPM production deployment.">
 <link rel="stylesheet" href="/styles.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+.page-shell { display: flex; min-height: calc(100vh - 56px); }
+.sidebar { width: 210px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); padding: 16px 10px; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; }
+.main-content { flex: 1; min-width: 0; padding: 28px 32px 80px; }
+.sidebar-label { font-size: 11px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 10px 8px; }
+.sidebar-link { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: var(--radius-sm); font-size: 13.5px; font-weight: 500; color: var(--t2); text-decoration: none; margin-bottom: 1px; transition: all 0.12s; }
+.sidebar-link:hover { background: var(--surface-3); color: var(--t1); }
+.sidebar-link.active { background: var(--blue-bg); color: var(--blue); font-weight: 600; }
+.sidebar-sep { height: 1px; background: var(--border); margin: 10px 8px; }
 
-:root {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --bg-primary: #FFFFFF;
-  --bg-subtle: #F9FAFB;
-  --bg-dark: #111827;
-  --border-light: #E5E7EB;
-  --border-hover: #CBD5E1;
-  --text-primary: #111827;
-  --text-secondary: #4B5563;
-  --text-muted: #6B7280;
-  --accent-blue: #2563EB;
-  --accent-green: #10B981;
+.phase-timeline { position: relative; padding-left: 32px; }
+.phase-timeline::before {
+  content: ''; position: absolute; left: 11px; top: 0; bottom: 0;
+  width: 2px; background: var(--border);
+}
+.phase-item {
+  position: relative; margin-bottom: 20px;
+}
+.phase-dot {
+  position: absolute; left: -26px; top: 16px;
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid var(--surface);
+  box-shadow: 0 0 0 2px var(--border);
+}
+.phase-dot.done    { background: var(--green); box-shadow: 0 0 0 2px var(--green-bd); }
+.phase-dot.active  { background: var(--blue);  box-shadow: 0 0 0 3px var(--blue-bg); }
+.phase-dot.planned { background: var(--t3);    box-shadow: 0 0 0 2px var(--border); }
+
+.phase-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: box-shadow 0.15s;
+}
+.phase-card:hover { box-shadow: var(--shadow-md); }
+.phase-card.done   { border-left: 3px solid var(--green); }
+.phase-card.active { border-left: 3px solid var(--blue); }
+.phase-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+}
+.phase-num {
+  font-size: 11px; font-weight: 800; padding: 3px 9px;
+  border-radius: 99px; letter-spacing: 0.06em;
+}
+.phase-title { font-size: 15px; font-weight: 800; color: var(--t1); letter-spacing: -0.02em; flex: 1; }
+.phase-body { padding: 16px 20px; }
+.phase-body p { font-size: 13.5px; color: var(--t2); line-height: 1.65; margin-bottom: 10px; }
+.phase-body strong { color: var(--t1); }
+.phase-features { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.pf-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 12.5px; color: var(--t2); font-weight: 500;
+  padding: 4px 10px; border-radius: 99px;
+  border: 1px solid var(--border); background: var(--surface-3);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-sans); }
-html, body { background-color: var(--bg-primary); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; }
-
-.navbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; border-bottom: 1px solid var(--border-light); background: var(--bg-primary); position: sticky; top: 0; z-index: 100; }
-.nav-left { display: flex; align-items: center; gap: 36px; }
-.brand { display: flex; align-items: center; gap: 8px; font-size: 19px; font-weight: 700; color: var(--text-primary); text-decoration: none; cursor: pointer; }
-.brand-icon { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: var(--bg-dark); color: #FFFFFF; border-radius: 6px; font-size: 14px; }
-.nav-menu { display: flex; align-items: center; gap: 26px; list-style: none; }
-.nav-item { position: relative; }
-.nav-link { color: var(--text-secondary); font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 4px; padding: 8px 0; cursor: pointer; }
-.nav-link:hover, .nav-link.active { color: var(--text-primary); font-weight: 600; }
-.chevron { font-size: 10px; color: var(--text-muted); }
-.nav-item:hover .chevron { transform: rotate(180deg); }
-.dropdown-menu { display: none; position: absolute; top: 100%; left: -10px; background: var(--bg-primary); border: 1px solid var(--border-light); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08); border-radius: 12px; padding: 8px; min-width: 250px; z-index: 200; }
-.nav-item:hover .dropdown-menu { display: block; }
-.dropdown-item { display: block; padding: 9px 14px; color: var(--text-secondary); text-decoration: none; font-size: 13.5px; font-weight: 500; border-radius: 8px; cursor: pointer; }
-.dropdown-item:hover { background: #F3F4F6; color: var(--text-primary); }
-.nav-right { display: flex; align-items: center; gap: 16px; }
-.status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: #ECFDF5; color: #065F46; border-radius: 9999px; font-size: 12px; font-weight: 600; border: 1px solid #A7F3D0; }
-.status-dot { width: 7px; height: 7px; background-color: var(--accent-green); border-radius: 50%; }
-.btn-nav-action { background: var(--bg-dark); color: #FFFFFF; padding: 8px 18px; border-radius: 9999px; font-size: 13.5px; font-weight: 600; text-decoration: none; cursor: pointer; }
-.container { max-width: 1080px; margin: 0 auto; padding: 40px 24px 80px 24px; }
-.hero-header { margin-bottom: 24px; }
-.page-title { font-size: 42px; font-weight: 800; color: var(--text-primary); margin-bottom: 10px; }
-.hero-subtitle { font-size: 16px; color: var(--text-secondary); line-height: 1.6; max-width: 680px; }
-.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 28px 0 36px 0; }
-.kpi-card { border: 1px solid var(--border-light); border-radius: 12px; padding: 16px 18px; background: #FAFAFA; }
-.kpi-label { font-size: 12.5px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
-.kpi-value { font-size: 24px; font-weight: 800; color: var(--text-primary); }
-.kpi-sub { font-size: 11.5px; color: var(--accent-green); font-weight: 600; margin-top: 2px; }
-.section-title { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+/* Tech stack table */
+.stack-row {
+  display: flex; align-items: center;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px;
+}
+.stack-row:last-child { border-bottom: none; }
+.stack-row:hover { background: var(--surface-2); }
+.stack-component { width: 160px; font-weight: 700; color: var(--t1); flex-shrink: 0; }
+.stack-current { flex: 1; color: var(--t2); }
+.stack-arrow { color: var(--t3); padding: 0 12px; }
+.stack-scale { flex: 1; color: var(--blue); font-weight: 600; }
 </style>
 </head>
 <body>
+<div id="cp-nav-placeholder"></div>
 
-  <!-- TOP NAVBAR -->
-  <nav class="navbar">
-    <div class="nav-left">
-      <a href="/" class="brand">
-        <span class="brand-icon">🛡️</span>
-        ControlPlane
-      </a>
-      <ul class="nav-menu">
-        <li class="nav-item">
-          <a class="nav-link">Risk Stages <span class="chevron">⌵</span></a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/#playground">L0: Pre-Gate (PII &amp; Injection)</a>
-            <a class="dropdown-item" href="/#playground">L1: Semantic Cache &amp; Cascade</a>
-            <a class="dropdown-item" href="/#playground">L2: NLI Grounding Gate</a>
-            <a class="dropdown-item" href="/how-it-works.html">L3: Agent Intent Contracts</a>
-            <a class="dropdown-item" href="/audit.html">L4: Hash-Chained Audit Ledger</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Governance Tools <span class="chevron">⌵</span></a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/#playground">Live Request Playground</a>
-            <a class="dropdown-item" href="/audit.html">Cryptographic Audit Explorer</a>
-            <a class="dropdown-item" href="/calibration.html">Grounding Calibration</a>
-            <a class="dropdown-item" href="/bandit.html">Bandit Cost Model</a>
-            <a class="dropdown-item" href="/scale.html">Production Scale Roadmap</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/how-it-works.html">How It Works</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/#benchmarks">Benchmarks</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Resources <span class="chevron">⌵</span></a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/docs" target="_blank">FastAPI OpenAPI Swagger ↗</a>
-            <a class="dropdown-item" href="https://github.com/antrikshagalaxy/controlplane" target="_blank">GitHub Repository ↗</a>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="nav-right">
-      <div class="status-pill">
-        <span class="status-dot"></span> Gateway Active (8080)
+<div class="page-shell">
+  <aside class="sidebar">
+    <div class="sidebar-label">Governance</div>
+    <a href="/" class="sidebar-link">⚡ Playground</a>
+    <a href="/audit.html" class="sidebar-link">📜 Audit Ledger</a>
+    <a href="/calibration.html" class="sidebar-link">📐 Grounding</a>
+    <a href="/bandit.html" class="sidebar-link">📊 Bandit</a>
+    <div class="sidebar-sep"></div>
+    <div class="sidebar-label">Resources</div>
+    <a href="/how-it-works.html" class="sidebar-link">🔬 How It Works</a>
+    <a href="/scale.html" class="sidebar-link active">🚀 Scale Roadmap</a>
+    <a href="/docs" class="sidebar-link" target="_blank">📡 API Docs ↗</a>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <div class="page-breadcrumb">
+        <a href="/">ControlPlane.ai</a>
+        <span class="sep">/</span>
+        <span>Production Scale Roadmap</span>
       </div>
-      <a href="/#playground" class="btn-nav-action">Test Gateway ⚡</a>
+      <h1 class="page-title">🚀 Production Scale Roadmap</h1>
+      <p class="page-sub">
+        The path from this prototype (single-node FastAPI) to a production-grade deployment handling
+        100,000+ requests per minute across multiple enterprise tenants, with full observability and
+        HA guarantees.
+      </p>
     </div>
-  </nav>
 
-  <main class="container">
-    <div class="hero-header">
+    <!-- Current vs Scale Stats -->
+    <div class="stat-row" style="margin-bottom:28px;">
+      <div class="stat-card">
+        <div class="stat-label">Current Throughput</div>
+        <div class="stat-value">~50</div>
+        <div class="stat-sub" style="color:var(--t3);">RPS · Single node</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Target Throughput</div>
+        <div class="stat-value" style="color:var(--blue);">100K+</div>
+        <div class="stat-sub" style="color:var(--t3);">RPM · Distributed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">P99 Latency Target</div>
+        <div class="stat-value" style="color:var(--green);">&lt;50ms</div>
+        <div class="stat-sub" style="color:var(--t3);">Cache hit path</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">HA Availability</div>
+        <div class="stat-value" style="color:var(--purple);">99.9%</div>
+        <div class="stat-sub" style="color:var(--t3);">Multi-AZ deployment</div>
+      </div>
+    </div>
+
+    <!-- Component Upgrade Table -->
+    <div class="card" style="margin-bottom:28px;">
+      <div class="card-header">
+        <span class="card-title">⚙️ Component Evolution — Prototype → Production</span>
+      </div>
       <div>
-        <h1 class="page-title">
-          🚀 From Prototype to Enterprise Production Scale
-        </h1>
-        <p class="hero-subtitle">
-          Systems engineering migration blueprint: scaling from a deadline-tiered Python prototype to high-throughput, horizontally partitioned cloud infrastructure.
-        </p>
-      </div>
-    </div>
-
-    <!-- STATS -->
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-label">Weekly Ingestion Volume</div>
-        <div class="kpi-value">~50,000 req/wk</div>
-        <div class="kpi-sub">Standard Enterprise Load</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Average Ingestion Rate</div>
-        <div class="kpi-value">~0.08 req/s</div>
-        <div class="kpi-sub">Steady State</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Peak Burst Throughput</div>
-        <div class="kpi-value">~0.8 req/s (10x)</div>
-        <div class="kpi-sub">Handled via Pools</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Availability SLO</div>
-        <div class="kpi-value">99.99%</div>
-        <div class="kpi-sub">Stateless Gateway Pods</div>
-      </div>
-    </div>
-
-    <h2 class="section-title" style="margin-top: 32px;">Architecture Migration Matrix: Prototype vs Production</h2>
-    
-    <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 16px;">
-      <div class="kpi-card" style="padding: 20px;">
-        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Gateway Ingestion Layer</div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13.5px;">
-          <div style="color: #6B7280;"><strong>🔧 Prototype:</strong> Single FastAPI process, in-process asyncio</div>
-          <div style="color: #111827;"><strong>🏭 Production:</strong> Horizontally scaled Rust / Axum pods behind Envoy / K8s HPA with connection pooling</div>
+        <div class="stack-row" style="background:var(--surface-2);border-bottom:1px solid var(--border);">
+          <div class="stack-component" style="color:var(--t3);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Component</div>
+          <div class="stack-current" style="color:var(--t3);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Current (Prototype)</div>
+          <div class="stack-arrow"></div>
+          <div class="stack-scale" style="color:var(--t3);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;">Production Target</div>
         </div>
-      </div>
-
-      <div class="kpi-card" style="padding: 20px;">
-        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Semantic Cache Cluster</div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13.5px;">
-          <div style="color: #6B7280;"><strong>🔧 Prototype:</strong> In-process FAISS flat index</div>
-          <div style="color: #111827;"><strong>🏭 Production:</strong> Distributed Qdrant / Pinecone cluster shared across all edge pods with sub-millisecond gRPC routing</div>
+        <div class="stack-row">
+          <div class="stack-component">Web Server</div>
+          <div class="stack-current">uvicorn (1 worker)</div>
+          <div class="stack-arrow">→</div>
+          <div class="stack-scale">Gunicorn + 8 uvicorn workers + nginx</div>
         </div>
-      </div>
-
-      <div class="kpi-card" style="padding: 20px;">
-        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Model Cascade Queue</div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13.5px;">
-          <div style="color: #6B7280;"><strong>🔧 Prototype:</strong> Direct synchronous Groq client per request</div>
-          <div style="color: #111827;"><strong>🏭 Production:</strong> Async task queue (Redis / Kafka) with circuit breakers and multi-provider failover</div>
+        <div class="stack-row">
+          <div class="stack-component">Semantic Cache</div>
+          <div class="stack-current">FAISS in-process</div>
+          <div class="stack-arrow">→</div>
+          <div class="stack-scale">Redis Cluster + GPU FAISS shard</div>
         </div>
-      </div>
-
-      <div class="kpi-card" style="padding: 20px;">
-        <div style="font-size: 16px; font-weight: 700; margin-bottom: 6px;">Compliance Audit Log</div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 13.5px;">
-          <div style="color: #6B7280;"><strong>🔧 Prototype:</strong> SQLite single file with SHA-256 hash chain</div>
-          <div style="color: #111827;"><strong>🏭 Production:</strong> ClickHouse append-only log with AWS S3 WORM / Object Lock compliance immutability</div>
+        <div class="stack-row">
+          <div class="stack-component">Audit Ledger</div>
+          <div class="stack-current">SQLite file</div>
+          <div class="stack-arrow">→</div>
+          <div class="stack-scale">Kafka → S3 + Athena query layer</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-component">NLI Grounding</div>
+          <div class="stack-current">In-process model call</div>
+          <div class="stack-arrow">→</div>
+          <div class="stack-scale">Dedicated microservice + GPU pool</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-component">PII / Injection</div>
+          <div class="stack-current">In-process regex</div>
+          <div class="stack-arrow">→</div>
+          <div class="stack-scale">Pre-filter sidecar (WASM) · sub-0.5ms</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-component">LLM Routing</div>
+          <div class="stack-current">Groq single endpoint</div>
+          <div class="stack-arrow">→</div>
+          <div class="stack-scale">Multi-provider LiteLLM + circuit breaker</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-component">Multi-tenancy</div>
+          <div class="stack-current">Single profile in-memory</div>
+          <div class="stack-arrow">→</div>
+          <div class="stack-scale">Per-tenant policy DB + JWT scoping</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-component">Observability</div>
+          <div class="stack-current">X-CP-* headers only</div>
+          <div class="stack-arrow">→</div>
+          <div class="stack-scale">OpenTelemetry → Grafana + PagerDuty</div>
         </div>
       </div>
     </div>
+
+    <!-- Phase Timeline -->
+    <div class="section-title" style="margin-bottom:20px;">Deployment Phases</div>
+
+    <div class="phase-timeline">
+
+      <div class="phase-item">
+        <div class="phase-dot done"></div>
+        <div class="phase-card done">
+          <div class="phase-head">
+            <span class="phase-num" style="background:var(--green-bg);color:var(--green);">✓ DONE</span>
+            <span class="phase-title">Phase 1 — Proof of Concept</span>
+            <span class="tag tag-green">Current State</span>
+          </div>
+          <div class="phase-body">
+            <p>Single-node FastAPI serving a static frontend. All pipeline layers implemented and integrated.
+            Full test suite with 13/13 passing. Demonstrates the full L0→L4 governance pipeline in a live environment.</p>
+            <div class="phase-features">
+              <span class="pf-item">✅ L0–L4 pipeline complete</span>
+              <span class="pf-item">✅ 13/13 tests passing</span>
+              <span class="pf-item">✅ FastAPI + Groq integrated</span>
+              <span class="pf-item">✅ SHA-256 audit ledger</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-dot active"></div>
+        <div class="phase-card active">
+          <div class="phase-head">
+            <span class="phase-num" style="background:var(--blue-bg);color:var(--blue);">NEXT</span>
+            <span class="phase-title">Phase 2 — Multi-Worker + Redis Cache</span>
+            <span class="tag tag-blue">Q4 2025</span>
+          </div>
+          <div class="phase-body">
+            <p>Move FAISS to a dedicated Redis cluster for shared semantic cache across workers. Add Gunicorn process management.
+            Introduce per-tenant API key scoping and basic rate limiting. Deploy with Docker Compose.</p>
+            <div class="phase-features">
+              <span class="pf-item">⚙️ Gunicorn multi-worker</span>
+              <span class="pf-item">🔴 Redis semantic cache</span>
+              <span class="pf-item">🔑 Per-tenant API keys</span>
+              <span class="pf-item">🐳 Docker Compose deploy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-dot planned"></div>
+        <div class="phase-card">
+          <div class="phase-head">
+            <span class="phase-num" style="background:var(--surface-3);color:var(--t3);">PLANNED</span>
+            <span class="phase-title">Phase 3 — Kafka Streaming + Distributed Audit</span>
+            <span class="tag tag-gray">Q1 2026</span>
+          </div>
+          <div class="phase-body">
+            <p>Replace synchronous SQLite writes with async Kafka audit events. S3 + Athena for queryable, immutable audit storage at scale.
+            OpenTelemetry instrumentation across all pipeline stages with Grafana dashboards.</p>
+            <div class="phase-features">
+              <span class="pf-item">📨 Kafka event streaming</span>
+              <span class="pf-item">🗄️ S3 + Athena ledger</span>
+              <span class="pf-item">📊 OpenTelemetry + Grafana</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-dot planned"></div>
+        <div class="phase-card">
+          <div class="phase-head">
+            <span class="phase-num" style="background:var(--surface-3);color:var(--t3);">PLANNED</span>
+            <span class="phase-title">Phase 4 — Kubernetes HA + Multi-Region</span>
+            <span class="tag tag-gray">Q2 2026</span>
+          </div>
+          <div class="phase-body">
+            <p>Full Kubernetes deployment with HPA autoscaling, multi-AZ Redis, and circuit breakers for LLM providers.
+            99.9% SLA with PagerDuty integration. GPU pool for NLI grounding microservice.</p>
+            <div class="phase-features">
+              <span class="pf-item">☸️ Kubernetes + HPA</span>
+              <span class="pf-item">🌐 Multi-AZ Redis</span>
+              <span class="pf-item">⚡ GPU NLI microservice</span>
+              <span class="pf-item">📟 PagerDuty alerting</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </main>
+</div>
 
-<script src="/app.js"></script>
+<footer>
+  <span>ControlPlane.ai · Production Scale Roadmap</span>
+  <a href="/">← Back to Playground</a>
+</footer>
+
+<script src="/shared-nav.js"></script>
 </body>
 </html>

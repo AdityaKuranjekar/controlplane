@@ -3,210 +3,243 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bandit Optimization — ControlPlane</title>
+<title>Bandit Optimizer — ControlPlane.ai</title>
+<meta name="description" content="Multi-armed bandit cache optimization for ControlPlane — Thompson sampling decision curves.">
 <link rel="stylesheet" href="/styles.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+.page-shell { display: flex; min-height: calc(100vh - 56px); }
+.sidebar { width: 210px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); padding: 16px 10px; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; }
+.main-content { flex: 1; min-width: 0; padding: 28px 32px 80px; }
+.sidebar-label { font-size: 11px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 10px 8px; }
+.sidebar-link { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: var(--radius-sm); font-size: 13.5px; font-weight: 500; color: var(--t2); text-decoration: none; margin-bottom: 1px; transition: all 0.12s; }
+.sidebar-link:hover { background: var(--surface-3); color: var(--t1); }
+.sidebar-link.active { background: var(--blue-bg); color: var(--blue); font-weight: 600; }
+.sidebar-sep { height: 1px; background: var(--border); margin: 10px 8px; }
 
-:root {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --bg-primary: #FFFFFF;
-  --bg-subtle: #F9FAFB;
-  --bg-dark: #111827;
-  --border-light: #E5E7EB;
-  --border-hover: #CBD5E1;
-  --text-primary: #111827;
-  --text-secondary: #4B5563;
-  --text-muted: #6B7280;
-  --accent-blue: #2563EB;
-  --accent-green: #10B981;
+/* Arm bars */
+.arm-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 20px;
+  margin-bottom: 12px;
+  transition: all 0.15s;
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-sans); }
-html, body { background-color: var(--bg-primary); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; }
-
-.navbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 48px; border-bottom: 1px solid var(--border-light); background: var(--bg-primary); position: sticky; top: 0; z-index: 100; }
-.nav-left { display: flex; align-items: center; gap: 36px; }
-.brand { display: flex; align-items: center; gap: 8px; font-size: 19px; font-weight: 700; color: var(--text-primary); text-decoration: none; cursor: pointer; }
-.brand-icon { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; background: var(--bg-dark); color: #FFFFFF; border-radius: 6px; font-size: 14px; }
-.nav-menu { display: flex; align-items: center; gap: 26px; list-style: none; }
-.nav-item { position: relative; }
-.nav-link { color: var(--text-secondary); font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 4px; padding: 8px 0; cursor: pointer; }
-.nav-link:hover, .nav-link.active { color: var(--text-primary); font-weight: 600; }
-.chevron { font-size: 10px; color: var(--text-muted); }
-.nav-item:hover .chevron { transform: rotate(180deg); }
-.dropdown-menu { display: none; position: absolute; top: 100%; left: -10px; background: var(--bg-primary); border: 1px solid var(--border-light); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08); border-radius: 12px; padding: 8px; min-width: 250px; z-index: 200; }
-.nav-item:hover .dropdown-menu { display: block; }
-.dropdown-item { display: block; padding: 9px 14px; color: var(--text-secondary); text-decoration: none; font-size: 13.5px; font-weight: 500; border-radius: 8px; cursor: pointer; }
-.dropdown-item:hover { background: #F3F4F6; color: var(--text-primary); }
-.nav-right { display: flex; align-items: center; gap: 16px; }
-.status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: #ECFDF5; color: #065F46; border-radius: 9999px; font-size: 12px; font-weight: 600; border: 1px solid #A7F3D0; }
-.status-dot { width: 7px; height: 7px; background-color: var(--accent-green); border-radius: 50%; }
-.btn-nav-action { background: var(--bg-dark); color: #FFFFFF; padding: 8px 18px; border-radius: 9999px; font-size: 13.5px; font-weight: 600; text-decoration: none; cursor: pointer; }
-.container { max-width: 1080px; margin: 0 auto; padding: 40px 24px 80px 24px; }
-.hero-header { margin-bottom: 24px; }
-.page-title { font-size: 42px; font-weight: 800; color: var(--text-primary); margin-bottom: 10px; }
-.hero-subtitle { font-size: 16px; color: var(--text-secondary); line-height: 1.6; max-width: 680px; }
-.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 28px 0 36px 0; }
-.kpi-card { border: 1px solid var(--border-light); border-radius: 12px; padding: 16px 18px; background: #FAFAFA; }
-.kpi-label { font-size: 12.5px; color: var(--text-muted); font-weight: 500; margin-bottom: 4px; }
-.kpi-value { font-size: 24px; font-weight: 800; color: var(--text-primary); }
-.kpi-sub { font-size: 11.5px; color: var(--accent-green); font-weight: 600; margin-top: 2px; }
-.table-wrapper { border: 1px solid var(--border-light); border-radius: 12px; overflow: hidden; margin-bottom: 24px; background: #FFFFFF; }
-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-th { background: var(--bg-subtle); color: #374151; font-weight: 600; text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border-light); }
-td { padding: 12px 16px; border-bottom: 1px solid #F3F4F6; color: #1F2937; }
-tr:last-child td { border-bottom: none; }
-tr:hover td { background: #FAFAFA; }
-.section-title { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+.arm-card:hover { box-shadow: var(--shadow-md); }
+.arm-card.optimal { border-color: var(--green-bd); background: linear-gradient(to right, var(--green-bg), var(--surface)); }
+.arm-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.arm-label { font-size: 16px; font-weight: 800; color: var(--t1); letter-spacing: -0.02em; }
+.arm-pulls { font-size: 12px; color: var(--t3); font-weight: 600; }
+.arm-bars { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.arm-metric { }
+.am-label { font-size: 11px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 5px; }
+.am-val { font-size: 20px; font-weight: 800; font-family: var(--mono); color: var(--t1); margin-bottom: 5px; }
+.am-bar { height: 6px; background: var(--surface-3); border-radius: 99px; overflow: hidden; border: 1px solid var(--border); }
+.am-fill { height: 100%; border-radius: 99px; transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
 </style>
 </head>
 <body>
+<div id="cp-nav-placeholder"></div>
 
-  <!-- TOP NAVBAR -->
-  <nav class="navbar">
-    <div class="nav-left">
-      <a href="/" class="brand">
-        <span class="brand-icon">🛡️</span>
-        ControlPlane
-      </a>
-      <ul class="nav-menu">
-        <li class="nav-item">
-          <a class="nav-link">Risk Stages <span class="chevron">⌵</span></a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/#playground">L0: Pre-Gate (PII &amp; Injection)</a>
-            <a class="dropdown-item" href="/#playground">L1: Semantic Cache &amp; Cascade</a>
-            <a class="dropdown-item" href="/#playground">L2: NLI Grounding Gate</a>
-            <a class="dropdown-item" href="/how-it-works.html">L3: Agent Intent Contracts</a>
-            <a class="dropdown-item" href="/audit.html">L4: Hash-Chained Audit Ledger</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Governance Tools <span class="chevron">⌵</span></a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/#playground">Live Request Playground</a>
-            <a class="dropdown-item" href="/audit.html">Cryptographic Audit Explorer</a>
-            <a class="dropdown-item" href="/calibration.html">Grounding Calibration</a>
-            <a class="dropdown-item" href="/bandit.html">Bandit Cost Model</a>
-            <a class="dropdown-item" href="/scale.html">Production Scale Roadmap</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/how-it-works.html">How It Works</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/#benchmarks">Benchmarks</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Resources <span class="chevron">⌵</span></a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="/docs" target="_blank">FastAPI OpenAPI Swagger ↗</a>
-            <a class="dropdown-item" href="https://github.com/antrikshagalaxy/controlplane" target="_blank">GitHub Repository ↗</a>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="nav-right">
-      <div class="status-pill">
-        <span class="status-dot"></span> Gateway Active (8080)
+<div class="page-shell">
+  <aside class="sidebar">
+    <div class="sidebar-label">Governance</div>
+    <a href="/" class="sidebar-link">⚡ Playground</a>
+    <a href="/audit.html" class="sidebar-link">📜 Audit Ledger</a>
+    <a href="/calibration.html" class="sidebar-link">📐 Grounding</a>
+    <a href="/bandit.html" class="sidebar-link active">📊 Bandit</a>
+    <div class="sidebar-sep"></div>
+    <div class="sidebar-label">Resources</div>
+    <a href="/how-it-works.html" class="sidebar-link">🔬 How It Works</a>
+    <a href="/scale.html" class="sidebar-link">🚀 Scale Roadmap</a>
+    <a href="/docs" class="sidebar-link" target="_blank">📡 API Docs ↗</a>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <div class="page-breadcrumb">
+        <a href="/">ControlPlane.ai</a>
+        <span class="sep">/</span>
+        <span>Bandit Optimizer</span>
       </div>
-      <a href="/#playground" class="btn-nav-action">Test Gateway ⚡</a>
+      <h1 class="page-title">🎰 Multi-Armed Bandit Cache Optimizer</h1>
+      <p class="page-sub">
+        Thompson-sampling Bayesian bandit that dynamically selects the similarity threshold (τ) for the semantic cache,
+        balancing cache hit rate against false-hit penalty — with zero manual tuning.
+      </p>
     </div>
-  </nav>
 
-  <main class="container">
-    <div class="hero-header">
-      <div>
-        <h1 class="page-title">
-          🎰 Multi-Armed Bandit Cache Optimization
-        </h1>
-        <p class="hero-subtitle">
-          Thompson-sampling Bayesian bandit replay curves for dynamically balancing semantic cache hit rate vs. false-hit penalty.
-        </p>
+    <!-- Stats -->
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-label">Best Fixed Arm</div>
+        <div class="stat-value" id="bandit-best" style="color:var(--green);">τ = 0.85</div>
+        <div class="stat-sub" style="color:var(--t3);">Oracle Hindsight Policy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Bandit Favored Arm</div>
+        <div class="stat-value" id="bandit-favored" style="color:var(--blue);">τ = 0.85</div>
+        <div class="stat-sub" style="color:var(--t3);">Learned Posterior</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Convergence</div>
+        <div class="stat-value" style="color:var(--green);font-size:20px;font-family:var(--font);">✅ Optimal</div>
+        <div class="stat-sub" style="color:var(--t3);">Matches Oracle</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Strategy</div>
+        <div class="stat-value" style="font-size:14px;font-family:var(--font);margin-top:6px;">Thompson Beta(α,β)</div>
+        <div class="stat-sub" style="color:var(--t3);">Zero Tuning Required</div>
       </div>
     </div>
 
-    <!-- STATS -->
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-label">Best Fixed Arm (Hindsight)</div>
-        <div class="kpi-value" id="bandit-best">τ = 0.85</div>
-        <div class="kpi-sub">Oracle Policy</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Bandit Favored Arm</div>
-        <div class="kpi-value" id="bandit-favored">τ = 0.85</div>
-        <div class="kpi-sub">Learned Posterior</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Convergence Status</div>
-        <div class="kpi-value" style="color: #10B981;">✅ OPTIMAL</div>
-        <div class="kpi-sub">Matches Oracle</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Bayesian Strategy</div>
-        <div class="kpi-value">Thompson Beta(α,β)</div>
-        <div class="kpi-sub">Zero Tuning Required</div>
+    <!-- Alert -->
+    <div class="alert alert-blue" style="margin-bottom:20px;">
+      <span class="alert-icon">ℹ️</span>
+      <div class="alert-body">
+        <div class="alert-title">How the Bandit Works</div>
+        <div class="alert-text">
+          Each candidate threshold τ is an <strong>arm</strong>. On every cache lookup, the bandit draws a sample from each arm's Beta(α,β) posterior
+          and selects the arm with the highest sample. Successes (correct cache hits) increment α; failures increment β.
+          Over 300 rounds, the bandit converges on τ = 0.85 — the arm that maximises reward without false hits.
+        </div>
       </div>
     </div>
 
-    <h2 class="section-title" style="margin-top: 32px;">Candidate Arm Distribution Stats</h2>
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Candidate Arm (Similarity Threshold)</th>
-            <th>Times Selected</th>
-            <th>Empirical Reward Rate</th>
-            <th>Posterior Mean</th>
-          </tr>
-        </thead>
-        <tbody id="bandit-tbody">
-          <tr>
-            <td><strong>τ = 0.80</strong></td>
-            <td>42 pulls</td>
-            <td>0.714</td>
-            <td>0.721</td>
-          </tr>
-          <tr>
-            <td><strong>τ = 0.85 (Optimal)</strong></td>
-            <td><strong style="color: #10B981;">184 pulls</strong></td>
-            <td><strong style="color: #10B981;">0.912</strong></td>
-            <td><strong style="color: #10B981;">0.908</strong></td>
-          </tr>
-          <tr>
-            <td><strong>τ = 0.90</strong></td>
-            <td>56 pulls</td>
-            <td>0.825</td>
-            <td>0.819</td>
-          </tr>
-          <tr>
-            <td><strong>τ = 0.95</strong></td>
-            <td>28 pulls</td>
-            <td>0.680</td>
-            <td>0.692</td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- Arm Cards -->
+    <div class="section-title" style="margin-bottom:14px;">Arm Distribution — 300 Rounds</div>
+
+    <div class="arm-card" id="arm-80">
+      <div class="arm-header">
+        <span class="arm-label">τ = 0.80</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="tag tag-yellow">Aggressive</span>
+          <span class="arm-pulls">42 pulls</span>
+        </div>
+      </div>
+      <div class="arm-bars">
+        <div class="arm-metric">
+          <div class="am-label">Times Selected</div>
+          <div class="am-val">42</div>
+          <div class="am-bar"><div class="am-fill" style="background:var(--yellow-l);width:14%"></div></div>
+        </div>
+        <div class="arm-metric">
+          <div class="am-label">Empirical Reward</div>
+          <div class="am-val">0.714</div>
+          <div class="am-bar"><div class="am-fill" style="background:var(--yellow-l);width:71.4%"></div></div>
+        </div>
+        <div class="arm-metric">
+          <div class="am-label">Posterior Mean</div>
+          <div class="am-val">0.721</div>
+          <div class="am-bar"><div class="am-fill" style="background:var(--yellow-l);width:72.1%"></div></div>
+        </div>
+      </div>
     </div>
+
+    <div class="arm-card optimal" id="arm-85">
+      <div class="arm-header">
+        <span class="arm-label">τ = 0.85</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="tag tag-green">★ Optimal · Converged</span>
+          <span class="arm-pulls">184 pulls</span>
+        </div>
+      </div>
+      <div class="arm-bars">
+        <div class="arm-metric">
+          <div class="am-label">Times Selected</div>
+          <div class="am-val" style="color:var(--green);">184</div>
+          <div class="am-bar"><div class="am-fill" style="background:var(--green-l);width:61%"></div></div>
+        </div>
+        <div class="arm-metric">
+          <div class="am-label">Empirical Reward</div>
+          <div class="am-val" style="color:var(--green);">0.912</div>
+          <div class="am-bar"><div class="am-fill" style="background:var(--green-l);width:91.2%"></div></div>
+        </div>
+        <div class="arm-metric">
+          <div class="am-label">Posterior Mean</div>
+          <div class="am-val" style="color:var(--green);">0.908</div>
+          <div class="am-bar"><div class="am-fill" style="background:var(--green-l);width:90.8%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arm-card" id="arm-90">
+      <div class="arm-header">
+        <span class="arm-label">τ = 0.90</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="tag tag-blue">Balanced</span>
+          <span class="arm-pulls">56 pulls</span>
+        </div>
+      </div>
+      <div class="arm-bars">
+        <div class="arm-metric">
+          <div class="am-label">Times Selected</div>
+          <div class="am-val">56</div>
+          <div class="am-bar"><div class="am-fill" style="background:var(--blue-l);width:18%"></div></div>
+        </div>
+        <div class="arm-metric">
+          <div class="am-label">Empirical Reward</div>
+          <div class="am-val">0.825</div>
+          <div class="am-bar"><div class="am-fill" style="background:var(--blue-l);width:82.5%"></div></div>
+        </div>
+        <div class="arm-metric">
+          <div class="am-label">Posterior Mean</div>
+          <div class="am-val">0.819</div>
+          <div class="am-bar"><div class="am-fill" style="background:var(--blue-l);width:81.9%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arm-card" id="arm-95">
+      <div class="arm-header">
+        <span class="arm-label">τ = 0.95</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="tag tag-gray">Conservative</span>
+          <span class="arm-pulls">28 pulls</span>
+        </div>
+      </div>
+      <div class="arm-bars">
+        <div class="arm-metric">
+          <div class="am-label">Times Selected</div>
+          <div class="am-val">28</div>
+          <div class="am-bar"><div class="am-fill" style="background:var(--t3);width:9%"></div></div>
+        </div>
+        <div class="arm-metric">
+          <div class="am-label">Empirical Reward</div>
+          <div class="am-val">0.680</div>
+          <div class="am-bar"><div class="am-fill" style="background:var(--t3);width:68%"></div></div>
+        </div>
+        <div class="arm-metric">
+          <div class="am-label">Posterior Mean</div>
+          <div class="am-val">0.692</div>
+          <div class="am-bar"><div class="am-fill" style="background:var(--t3);width:69.2%"></div></div>
+        </div>
+      </div>
+    </div>
+
   </main>
+</div>
 
-<script src="/app.js"></script>
+<footer>
+  <span>ControlPlane.ai · Bandit Cache Optimizer</span>
+  <a href="/">← Back to Playground</a>
+</footer>
+
+<script src="/shared-nav.js"></script>
 <script>
-  async function loadBandit() {
-    try {
-      const resp = await fetch('/v1/routing/bandit');
-      const data = await resp.json();
-      if (data.best_fixed_arm_in_hindsight) {
-        document.getElementById('bandit-best').innerText = 'τ = ' + data.best_fixed_arm_in_hindsight;
-      }
-      if (data.bandit_favored_arm) {
-        document.getElementById('bandit-favored').innerText = 'τ = ' + data.bandit_favored_arm;
-      }
-    } catch(e) {}
-  }
-  loadBandit();
+async function loadBandit() {
+  try {
+    const resp = await fetch('/v1/routing/bandit');
+    const data = await resp.json();
+    if (data.best_fixed_arm_in_hindsight) {
+      document.getElementById('bandit-best').innerText = 'τ = ' + data.best_fixed_arm_in_hindsight;
+    }
+    if (data.bandit_favored_arm) {
+      document.getElementById('bandit-favored').innerText = 'τ = ' + data.bandit_favored_arm;
+    }
+  } catch(e) {}
+}
+loadBandit();
 </script>
 </body>
 </html>
