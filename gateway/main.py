@@ -114,36 +114,48 @@ async def chat(req: ChatCompletionRequest):
 
     cache_store(redacted, result["answer"], result["tier_used"], req.cp_profile, req.context_chunks, action=decision.action)
 
-    # ADDED for L2: grounding gate, only for internal_rag profile with context supplied
+    # L2: grounding gate — only for internal_rag profile with context supplied
     if req.cp_profile == "internal_rag" and req.context_chunks:
         with sw.measure("grounding_setup"):
             gate = GroundingGate(req.context_chunks, threshold=profile.get("grounding_threshold", 0.6))
+
+        grounding_block_threshold = profile.get("thresholds", {}).get("grounding_block", 0.4)
+        grounding_action = profile.get("actions", {}).get("on_grounding_hit", "BLOCK")
         claim_events = []
 
+        # ── Feed entire response through gate then evaluate ────────────────────
+        for char_chunk in _chunk_answer_for_streaming(result["answer"]):
+            events = gate.feed_token(char_chunk)
+            for ev in events:
+                claim_events.append(ev)
+        tail_event = gate.finalize()
+        if tail_event:
+            claim_events.append(tail_event)
+
+        grounding_risk_val = gate.grounding_risk()
+        headers["X-CP-Grounding-Risk"] = f"{grounding_risk_val:.3f}"
+
+        # ── Enforce block if risk exceeds profile threshold ────────────────────
+        if grounding_risk_val >= grounding_block_threshold:
+            headers["X-CP-Action"] = grounding_action
+            blocked_msg = "[BLOCKED: grounding/hallucination risk exceeded]"
+            if not req.stream:
+                return JSONResponse(
+                    content={"choices": [{"message": {"content": blocked_msg}}]},
+                    headers=headers
+                )
+            async def grounding_blocked():
+                yield f"data: {blocked_msg}\n\n"
+            return StreamingResponse(grounding_blocked(), headers=headers, media_type="text/event-stream")
+
+        # ── Safe — return the verified answer ─────────────────────────────────
         if not req.stream:
-            for char_chunk in _chunk_answer_for_streaming(result["answer"]):
-                events = gate.feed_token(char_chunk)
-                for ev in events:
-                    claim_events.append(ev)
-            tail_event = gate.finalize()
-            if tail_event:
-                claim_events.append(tail_event)
-            headers["X-CP-Grounding-Risk"] = f"{gate.grounding_risk():.3f}" if claim_events else "0.000"
             return JSONResponse(content={"choices": [{"message": {"content": result['answer']}}]}, headers=headers)
 
         async def generate_grounded():
             for char_chunk in _chunk_answer_for_streaming(result["answer"]):
                 yield f"data: {char_chunk}\n\n"
-                events = gate.feed_token(char_chunk)
-                for ev in events:
-                    claim_events.append(ev)
-                    yield f"event: claim_checked\ndata: {json.dumps(ev)}\n\n"
-            tail_event = gate.finalize()
-            if tail_event:
-                claim_events.append(tail_event)
-                yield f"event: claim_checked\ndata: {json.dumps(tail_event)}\n\n"
 
-        headers["X-CP-Grounding-Risk"] = f"{gate.grounding_risk():.3f}" if claim_events else "n/a"
         return StreamingResponse(generate_grounded(), headers=headers, media_type="text/event-stream")
 
     if not req.stream:

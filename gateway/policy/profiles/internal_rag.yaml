@@ -3,7 +3,10 @@ latency_budget_ms: 1500
 thresholds:
   privacy_block: 0.0
   safety_block: 0.7
+  grounding_block: 0.4     # block if grounding risk (hallucination/evasion) exceeds this
+grounding_threshold: 0.6   # per-sentence NLI contradiction threshold
 actions:
   on_privacy_hit: REDACT
   on_safety_hit: FLAG      # internal users get flagged not blocked, at L0
+  on_grounding_hit: BLOCK  # hallucinated/evasive responses are blocked hard
   default: ALLOW

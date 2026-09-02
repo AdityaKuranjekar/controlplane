@@ -74,16 +74,6 @@ const CP_NAV_HTML = `
           </div>
           <span class="model-option-badge">Tier 0</span>
         </div>
-        <div class="dropdown-sep"></div>
-        <div class="dropdown-label">Local / Mock</div>
-        <div class="model-option" data-model="mock" onclick="selectModel(this)">
-          <span class="model-option-icon">🤖</span>
-          <div class="model-option-label">
-            <div style="font-weight:600;">Mock Responder</div>
-            <div style="font-size:11px;color:var(--t3);">Offline · No API key needed</div>
-          </div>
-          <span class="model-option-badge" style="background:var(--surface-3);color:var(--t3);">Local</span>
-        </div>
       </div>
     </div>
 

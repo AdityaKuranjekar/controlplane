@@ -10,4 +10,5 @@ httpx
 pytest
 streamlit
 pandas
-
+sentence-transformers
+scikit-learn
